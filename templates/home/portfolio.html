@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Portfolio | HarmonyCreativeStudio{% endblock title %}
+
+{% block portfolioactive %}active{% endblock portfolioactive %}
+
+{% block bodyClass %}bgCloth{% endblock bodyClass %}
+
+{% block metaDesc %}Hello, Portfolio{% endblock metaDesc %}
+
+{% block css %}
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
+    <style>
+        .portfolioBanner{
+            background: url('{% static 'images/Portfolio/banner.jpg' %}');
+            background-size: 100vw 100%, cover;
+            background-repeat: no-repeat;
+            height: 100%;
+            padding: 10%;
+        }
+        .homeLink{
+            transition:1s;
+            color: white;
+        }
+        .homeLink:hover{
+            color:rgb(177, 152, 112) !important;
+        }
+
+        .bgCloth{
+            background: rgba(255, 255, 255, .95) url('{%static 'images/Portfolio/threads.jpg'%}');
+            background-size: cover;
+            background-blend-mode: lighten;
+            background-attachment: fixed;
+        }
+
+        .card{
+            transition: .2s;
+            border-radius: 10px !important;
+            border: none !important;
+        }
+        .card img{
+            border-top-left-radius: 10px !important;
+            border-top-right-radius: 10px !important;
+        }
+        .card:hover{
+            {% comment %} transform: scale(1.1); {% endcomment %}
+            transform: translateY(-20px);
+        }
+
+        .no-display{
+            display:none;
+        }
+    </style>
+{% endblock css %}
+
+{% block body %}
+    <section class="portfolioBanner">
+        <div class="row">
+            <div class="col-md-1 bg-light rounded" style="width: 100%;background-color:rgba(0, 0, 0, .3) !important;cursor:default;">
+                <h3 class="text-big m-2" style="color:white;font-family: 'Zen Dots', cursive;">Portfolio</h3>
+                <p style="width:50vw;" class="text-small m-2"><a href="/" style="text-decoration:none;" class="homeLink">Home</a><span style="color:lightgray;"> &gt; Portfolio</span></p>
+            </div>
+        </div>
+    </section>
+        
+    <div id="portfolioLoader" class="row p-5" style="justify-content:center;">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <div id="portfolios" class="row p-5" style="justify-content:center;"></div>
+{% endblock body %}
+
+{% block js %}
+    <script>
+        const portfolioSpinner = document.getElementById('portfolioLoader');
+        const portfolios = document.getElementById('portfolios');
+        $.ajax({
+            type:'GET',
+            url:'/portfolio/',
+            success:function(res){
+                portfolioSpinner.classList.add('no-display');
+                portfolios.innerHTML = `
+                    {% for portfolio in allPortfolios %}
+                        <a href="/portfolio/{{portfolio.slug}}" class="my-3 p-0 card mx-3" style="width: 29%;text-decoration: none;color:black;">
+                            <img src="/media/{{portfolio.img1}}" class="card-img-top portfolioImg" alt="" width="auto" height="auto">
+                            <div class="card-body">
+                                <h5 class="card-title text-small text-center text3D" style="color:black;font-family: verdana;text-transform: uppercase;">{{portfolio.category}}</h5>
+                            </div>
+                        </a>
+                    {% endfor %}
+                `;
+            },
+            error:function(res){
+                console.log('Error loading the portfolios...')
+            }
+        });
+    </script>
+{% endblock js %}
+
+{% block mediaJS %}
+    document.getElementById('portfolios').classList.remove('m-5');
+    document.getElementById('portfolios').classList.remove('p-5');
+    document.getElementById('portfolios').classList.add('p-1');
+{% endblock mediaJS %}
+
+{% block mediaJSElse %}
+    document.getElementById('portfolios').classList.add('m-5');
+    document.getElementById('portfolios').classList.add('p-5');
+{% endblock mediaJSElse %}

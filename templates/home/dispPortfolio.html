@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{portfolio.category}} | HarmonyCreativeStudio{% endblock title %}
+{% block portfolioactive %}active{% endblock portfolioactive %}
+{% block metaDesc %}{{portfolio.metaDesc}}{% endblock metaDesc %}
+{% block metaKeywords %}{{portfolio.keywords}}{% endblock metaKeywords %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}" /><!-- https://unpkg.com/swiper/swiper-bundle.min.css -->
+    <style>
+        .swiper-container {
+            width: 100%;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 300px;
+            height: 300px;
+        }
+
+        a:hover{
+            color: rgb(177, 152, 112);
+        }
+
+        .swiper-slide{
+            border-radius: 5px !important;
+        }
+    </style>
+{% endblock css %}
+
+{% block body %}
+    <div class="noSelect container-fluid p-5" style="background:rgba(51, 51, 51, .8) url('/media/{{portfolio.featureImage}}') no-repeat center fixed;background-size:{% comment%}contain{% endcomment %} cover;background-blend-mode: darken;">
+        <table style="width: 100%">
+            <tr>
+                <td>
+                    <a href="/portfolio/{{prevPortfolio.slug}}" style="text-decoration:none;">
+                        <p onMouseOut="this.style.color='white'" onMouseOver="this.style.color='rgb(177, 152, 112)'" style="transition:1s; color:white;" class="text-small">&#8592; {{prevPortfolio.category}}</p>
+                    </a>
+                </td>
+                <td style="width: 60%">
+                    <div class="text-center mt-5"><h1 class="text-big" style="color:white;">{{portfolio.category}}</h1></div>
+                    <strong class="text-center mb-5"><p class="text-small" style="color:lightgray;">{{portfolio.desc}}</p></strong>
+                </td>
+                <td>
+                    <a href="/portfolio/{{nextPortfolio.slug}}" style="text-decoration:none;">
+                        <p onMouseOut="this.style.color='white'" onMouseOver="this.style.color='rgb(177, 152, 112)'" style="color:white;transition:1s;" class="text-end text-small">{{nextPortfolio.category}} &#8594;</p>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row mt-3" id="portfolioContent" style="padding:100px;">
+                <div class="col-md-8">
+                    <h3>Project Info</h3>
+                    <p class="my-3" style="font-family: 'Just Another Tank', cursive;">{{portfolio.projectInfo}}</p>
+                </div>
+                <div class="col-md-4"><p><b>Category: </b>{{portfolio.category}}</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" style="background-image:url('/media/{{portfolio.img1}}');"></div>
+            <div class="swiper-slide" style="background-image:url('/media/{{portfolio.img2}}');"></div>
+            <div class="swiper-slide" style="background-image:url('/media/{{portfolio.img3}}');"></div>
+            <div class="swiper-slide" style="background-image:url('/media/{{portfolio.img4}}');"></div>
+            <div class="swiper-slide" style="background-image:url('/media/{{portfolio.img5}}');"></div>
+            <div class="swiper-slide" style="background-image:url('/media/{{portfolio.img6}}');"></div>
+            <div class="swiper-slide" style="background-image:url('/media/{{portfolio.img7}}');"></div>
+            <div class="swiper-slide" style="background-image:url('/media/{{portfolio.img8}}');"></div>
+            <div class="swiper-slide" style="background-image:url('/media/{{portfolio.img9}}');"></div>
+            <div class="swiper-slide" style="background-image:url('/media/{{portfolio.img10}}');"></div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+{% endblock body %}
+
+{% block js %}
+    <script src="{% static 'js/third_party/swiper-bundle.min.js' %}"></script><!-- https://unpkg.com/swiper@6.7.0/swiper-bundle.min.js -->
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            coverflowEffect: {
+                rotate: 50,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows: true,
+            },
+            autoplay: {
+                delay: 600,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+    </script>
+{% endblock js %}
+
+{% block mediaJS %}
+    document.getElementById('portfolioContent').style.padding = "10px";
+{% endblock mediaJS %}
+{% block mediaJSElse %}
+    document.getElementById('portfolioContent').style.padding = "100px";
+{% endblock mediaJSElse %}

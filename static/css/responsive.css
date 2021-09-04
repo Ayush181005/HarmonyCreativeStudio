@@ -1,0 +1,111 @@
+@media only screen and (max-width:768px){
+    .formInput{
+        width:100% !important;
+    }
+    .footerIconAnchors{
+        font-size: 10px;
+    }
+
+    form{
+        font-size: 10px;
+    }
+
+    .text-big{
+        font-size: 21px;
+    }
+    
+    .text-small{
+        font-size: 8px;
+    }
+
+    .HarmonyTextLetter{
+        font-size:30px;
+        color:red;
+    }
+    
+    .HarmontTextWord{
+        font-size: 20px;
+    }
+    
+    .card-text-small{
+        font-size: 10px;
+    }
+
+    .copyrightFooter{
+        font-size: 8px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .searchForm{
+        margin-top: 50px !important;
+    }
+
+    /* .testimonial-bg{
+        background: none !important;
+    } */
+
+    .indicator{
+        height: 100px !important;
+        padding-top: 150px;
+    }
+
+    .btnIndicator{
+        background-color: gray;
+    }
+
+    .testimonial-box-outer{
+        margin-left: 5px !important;
+        margin-top:0 !important;
+        margin-bottom:0 !important;
+        max-width:90% !important;
+        padding: 5px;
+        height: 500px !important;
+        border: 1px solid gray !important;
+    }
+
+    .slide-col{
+        padding: 0 !important;
+    }
+
+    .text3D{
+        font-size: 1em;
+    }
+}
+
+@media only screen and (max-width:425px){
+    .text3D{
+        font-size: .6em;
+    }
+}
+
+@media only screen and (max-width:375px){
+    .text3D{
+        font-size: .5em;
+        text-shadow: 1px .2px 1px gray,
+            1px .4px 1px gray,
+            1px .6px 1px gray,
+            1px .8px 1px gray,
+            1px 1px 1px gray,
+            1px 1.2px 1px gray,
+            1px 1.4px 1px gray,
+            1px 1.6px 1px gray,
+            1px 1.8px 1px gray,
+            1px 2px 1px gray,
+        1px 4.5px 6px rgba(16,16,16,0.4),
+        1px 5.5px 10px rgba(16,16,16,0.2),
+        1px 6.25px 35px rgba(16,16,16,0.2),
+        1px 7.5px 60px rgba(16,16,16,0.4);
+    }
+}
+
+@media only screen and (max-width:320px){
+    .footerIconAnchors{
+        font-size: 8px !important;
+    }
+
+    .text3D{
+        font-size: .4em;
+    }
+}

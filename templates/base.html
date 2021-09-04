@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="{% block metaDesc %}{% endblock metaDesc %}">
+    <meta name="keywords" content="{% block metaKeywords %}{% endblock metaKeywords %}">
+    <meta name="author" content="Ayush">
+    <meta name="robots" content="INDEX, FOLLOW">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--<link rel="preconnect" href="https://cdn.jsdelivr.net/">-->
+    <link rel="dns-prefetch" href="/">
+    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">-->
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css'%}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Concert+One&family=Yatra+One&display=swap" rel="stylesheet">
+
+    <title>{% block title %}{% endblock title %}</title>
+    <link rel="shortcut icon" href="{%static "images/logos/HCS.jpg"%}" type="image/x-icon">
+
+    {% block css %}{% endblock css %}
+
+    <style>
+        ::-moz-selection {
+            background: #c9f0dd;
+        }
+
+        ::selection {
+            /*background: #c9f0dd;*/
+            background: rgba(201, 240, 221, .5);
+            z-index: -100;
+        }
+
+        /* Scroller */
+        :root{
+            scrollbar-color: rgb(13, 21, 68) transparent !important;
+            scrollbar-width: thin !important;
+        } /* for firefox */
+        /* width */
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background-color: transparent;
+        }        
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: rgb(13, 21, 68);
+        }
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(13, 21, 68, .9);
+            background-blend-mode: darken;
+        }
+        #navbar{
+            background-color: white;
+            position:sticky;
+            top:0;
+            z-index:1000;
+            width: 100vw;
+        }
+        .scrollNav{
+            opacity: .95;
+        }
+        #navbarImg{
+            transition: width .5s 0s;
+        }
+        .scrollNavImg{
+            width:70px;
+            height: auto;
+        }
+
+        footer{
+            background-color: #f8f9fa !important;
+            color:gray !important;
+            box-shadow: 0 0 10px lightgray !important;
+            {% if footerInAir%}
+                bottom: 0;
+                width: 100%;
+                position: fixed;
+            {% endif %}
+        }
+        .footerIconAnchors{
+            text-decoration: none;
+            color: black;
+            transition: 1s;
+        }
+        .footerIconAnchors:hover{
+            color: rgb(177, 152, 112);
+        }
+
+        .nav-item{
+            font-family: 'Concert One', cursive;
+        }
+        
+        #desDevAyush{
+            font-size:10px !important;
+        }
+
+        @media only screen and (max-width:540px){
+            #desDevAyush{
+                font-size: 7px !important;
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: center !important;
+            }
+        }
+
+        #goToTopBtn {
+            display: inline-block;
+            position: fixed;
+            bottom: 50px;
+            right: 30px;
+            height: 50px;
+            width: 50px;
+            z-index: 9999;
+            box-shadow: 0 2px 4px 0 rgb(0 0 0 / 15%);
+            background-color: #fff;
+            color: #000000;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            -ms-border-radius: 10px;
+            border-radius: 10px;
+            visibility: hidden;
+            opacity: 0;
+            -webkit-transform: translateY(30px);
+            -moz-transform: translateY(30px);
+            -ms-transform: translateY(30px);
+            -o-transform: translateY(30px);
+            transform: translateY(30px);
+            -webkit-transition: all 0.4s ease;
+            -moz-transition: all 0.4s ease;
+            transition: all 0.4s ease;
+            border: none !important;
+        }
+        #goToTopBtn.active{
+            visibility: visible;
+            opacity: 1;
+            -webkit-transform: translateY(0);
+            -moz-transform: translateY(0);
+            -ms-transform: translateY(0);
+            -o-transform: translateY(0);
+            transform: translateY(0);
+        }
+        @media (max-width: 991px){
+            #goToTopBtn{
+                bottom: 70px;
+                right: 30px;
+            }
+        }
+        @media (max-width: 1199px){
+            #goToTopBtn{
+                bottom: 50px;
+                right: 50px;
+            }
+        }
+        #goToTopBtn:hover {
+            background-color: rgb(202, 32, 40);
+            color: white;
+        }
+
+        .navbar-toggler{
+            border: none !important;
+        }
+
+        .navbar-toggler:focus {
+            text-decoration: none;
+            outline: 0;
+            box-shadow: none !important;
+        }
+
+        #hamburger-icon {
+            width: 30px;
+            height: 30px;
+            position: relative;
+            -webkit-transform: rotate(0deg);
+            -moz-transform: rotate(0deg);
+            -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+            -webkit-transition: .5s ease-in-out;
+            -moz-transition: .5s ease-in-out;
+            -o-transition: .5s ease-in-out;
+            transition: .5s ease-in-out;
+            cursor: pointer;
+        }
+
+        #hamburger-icon span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: #737373;
+            border-radius: 9px;
+            opacity: 1;
+            left: 0;
+            -webkit-transform: rotate(0deg);
+            -moz-transform: rotate(0deg);
+            -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+            -webkit-transition: .25s ease-in-out;
+            -moz-transition: .25s ease-in-out;
+            -o-transition: .25s ease-in-out;
+            transition: .25s ease-in-out;
+        }
+
+        #hamburger-icon span:nth-child(1) {
+            top: 0px;
+        }
+
+        #hamburger-icon span:nth-child(2) {
+            top: 10px;
+        }
+
+        #hamburger-icon span:nth-child(3) {
+            top: 20px;
+        }
+
+        #hamburger-icon.open span:nth-child(1) {
+            top: 18px;
+            -webkit-transform: rotate(135deg);
+            -moz-transform: rotate(135deg);
+            -o-transform: rotate(135deg);
+            transform: rotate(135deg);
+        }
+
+        #hamburger-icon.open span:nth-child(2) {
+            opacity: 0;
+            left: -60px;
+        }
+
+        #hamburger-icon.open span:nth-child(3) {
+            top: 18px;
+            -webkit-transform: rotate(-135deg);
+            -moz-transform: rotate(-135deg);
+            -o-transform: rotate(-135deg);
+            transform: rotate(-135deg);
+        }
+
+        .navShadow{
+            -moz-box-shadow: 0 10px 5px 5px white;
+            -webkit-box-shadow: 0 10px 5px 5px white;
+            box-shadow: 0 10px 5px 5px white;
+        }
+/*
+        .navLogo{
+            animation: navLogoAnim 6s infinite ease-out;
+        }
+        .navLogo:hover{
+            animation: none;
+        }
+        @keyframes navLogoAnim{
+            0%{opacity:1;transform:scale(1)}
+            30%{opacity:0.3;transform:scale(0.7)}
+            50%{opacity:1;transform:scale(1)}
+            100%{opacity:1;transform:scale(1)}
+        }
+*/
+        .navLogo{
+            transition: 0.1s;
+        }
+        .navLogo:hover{
+            transform: scale(1.1) rotate(-2deg);
+        }
+
+        ##updateModal input:focus{
+            box-shadow:none !important;
+        }
+        #commentAndReply input:focus{
+            box-shadow:none !important;
+        }
+        #loginModal input:focus{
+            box-shadow:none !important;
+        }
+        #signupModal input:focus{
+            box-shadow:none !important;
+        }
+
+        .btn-close:focus{
+            box-shadow:none !important;
+        }
+
+        .dropdown-item:focus{
+            background-color: #dee2e6 !important;
+            color: black !important;
+        }
+
+        .bgThread{
+            background: rgba(248, 249, 250, 0.95) url('{% static 'images/thread.png' %}') !important;
+            background-blend-mode:lighten !important;
+            background-attachment: fixed !important;
+        }
+
+        .loader{
+            position:fixed;
+            z-index:10000;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background:white;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .loader.hidden{
+            animation: fadeOut 1s;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes fadeOut{
+            100%{
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+        
+        .fa.fa-instagram {
+            color: transparent;
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+            background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+
+        .lazy, .yt-lazy{
+            display: inline-block;
+            margin: auto;
+            width: 2rem;
+            height: 2rem;
+            vertical-align: -0.125em;
+            border: 0.25em solid currentColor;
+            border-right-color: transparent;
+            border-radius: 50%;
+            animation: 0.75s linear infinite spinner-border;
+        }
+        @keyframes spinner-border {
+            to {
+                transform: rotate(360deg) /* rtl:ignore */;
+            }
+        }
+    </style>
+    <script>
+        function hamburgerClicked(){
+            document.getElementById('hamburger-icon').classList.toggle('open');
+        }
+    </script>
+</head>
+
+<body class="{% block bodyClass %}{% endblock bodyClass %}">
+    <div class="loader">
+        <div class="spinner-border text-danger" style="width: 5rem; height: 5rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <script>
+        var spinnerIntervalId = setInterval(function(){
+            document.getElementsByClassName('spinner-border')[0].classList.toggle('text-danger');
+            document.getElementsByClassName('spinner-border')[0].classList.toggle('text-primary');
+        }, 500);
+        window.addEventListener("load", function(){
+            document.querySelector('.loader').classList.add('hidden');
+            setTimeout(function(){
+                clearInterval(spinnerIntervalId);
+                document.querySelector('.loader').remove();
+            }, 500);
+        });
+    </script>
+
+    <nav class="navbar navbar-expand-lg navbar-light navShadow" id="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand navLogo" href="/">
+                <img width="130px" src="{% static 'images/logos/LOGO Tr.jpg' %}" id="navbarImg" class="d-inline-block align-text-top" alt="Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                {% comment %} <span class="navbar-toggler-icon"></span> {% endcomment %}
+                <div id="hamburger-icon" onclick="hamburgerClicked()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+            <div class="collapse navbar-collapse"></div>
+            <div class="collapse navbar-collapse"></div>
+            <div class="collapse navbar-collapse"></div>
+            <div class="collapse navbar-collapse"></div>
+            <div class="collapse navbar-collapse"></div>
+            <div class="collapse navbar-collapse"></div>
+            <div class="collapse navbar-collapse"></div>
+            <div class="collapse navbar-collapse"></div>
+            <div class="collapse navbar-collapse"></div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="row">
+                    <div class="col-md-12 text-end">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            {% if not isHome %}
+                                <li class="nav-item">
+                                    <a class="nav-link {% block navHome %}{% endblock navHome %}" aria-current="page" href="/">Home</a>
+                                </li>
+                            {% endif %}
+                            <li class="nav-item">
+                                <a class="nav-link" id="navAboutStudio" href="/#aboutstudio">About Studio</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="navAboutMe" href="/#aboutme">About Me</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% block portfolioactive %}{% endblock portfolioactive %}" id="navPortfolio" href="/portfolio">Portfolio</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% block blogactive %}{% endblock blogactive %}" id="navBlog" href="/blog">Blog</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="navContact" href="/#contact">Contact Us</a>
+                            </li>
+
+                            <div class="mx-4">
+                                {% if user.is_authenticated %}
+                                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Hi {{request.user}} <i class="fa fa-user mx-2"></i>
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <li><a class="dropdown-item" href="/my-account/">My Account</a></li>
+                                                {% if user.is_superuser %}
+                                                    <li><a class="dropdown-item" target="_blank" href="/hcs-admin">Admin</a></li>
+                                                    <li><a class="dropdown-item" href="/broadcast">Broadcast</a></li>
+                                                {% endif %}
+                                                <li><a class="dropdown-item" href="/logout/">Logout</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                {% else %}
+                                    {% if isBlog %}
+                                        <button type="button" class="btn btn-warning mr-2" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+                                        <button type="button" class="btn btn-warning mr-2" data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up</button>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    {% if not messageForContact %}
+        {% for message in messages %}
+            <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert" style="font-family: 'Yatra One', cursive;{% ifequal forloop.counter 1 %}margin-top:10px;{% endifequal %}">
+                MESSAGE: {{message|safe}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- SignUp Modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signupModalTitle">Sign Up to add comments and use amazing features, for Free!!!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/signup/" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="nameSignUp" name="name" placeholder="Your Name" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" autofill="off" id="username" name="username" placeholder="Your Username" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="phone" class="form-label">Contact No. (optional)</label>
+                                <input type="tel" class="form-control" autofill="off" id="phone" name="phone" placeholder="Your Contact No.">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="emailSignUp" name="email" placeholder="info@harmonycreativestudio.in" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <label for="pass1" class="form-label">Password</label>
+                                <input autocomplete="new-password" type="password" class="form-control" name="pass1" id="pass1" placeholder="Choose Your Password" required>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label for="pass2" class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control" name="pass2" id="pass2" placeholder="Retype Your Password" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-md-12">
+                                <label for="orgName" class="form-label">Organisation Name (Optional)</label>
+                                <input type="text" class="form-control" name="orgName" id="orgName" placeholder="Your Organisation Name">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-outline-danger">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalTitle">Welcome Back!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/login/" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="loginUsername" class="form-label">Username</label>
+                            <input type="text" class="form-control" autofill="off" id="loginUsername" name="loginUsername" placeholder="Username1234" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="pass" class="form-label">Password</label>
+                            <input type="password" class="form-control" name="pass" id="pass" placeholder="Enter Your Password" aria-describedby="exampleInputPassword1">
+                        </div>
+                        <div class="mb-3 col-md-12">
+                            <a href="/reset-password">Forgot Password?</a>
+                        </div>
+                    </div>
+                        <button type="submit" class="btn btn-outline-danger {% comment %}mb-2{% endcomment %}">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block body %}{% endblock body %}
+
+    <button onclick="topFunction()" id="goToTopBtn"><i class="fa fa-long-arrow-up"></i></button>
+
+    <footer>
+        <div class="m-0 p-4 noSelect">
+            <div class="row">
+                <div class="col-md-6 copyrightFooter">
+                    Copyright &copy; HarmonyCreativeStudio |
+                </div>
+                <div class="col-md-6 text-end" id='footerIcons'>
+                    <a title="Facebook" href="https://www.facebook.com/harmonycreativestudios/" target="_blank" rel="noopener noreferrer" class="footerIconAnchors"><i class="fa fa-facebook" style="color:#4267B2;"></i> facebook</a>&nbsp;
+                    <a title="Twitter" href="https://twitter.com/HarmonyCreativ2" target="_blank" rel="noopener noreferrer" class="footerIconAnchors"><i class="fa fa-twitter" style="color:#00acee;"></i> twitter</a>&nbsp;
+                    <a title="Instagram" href="https://www.instagram.com/harmonycreativestudio/" target="_blank" rel="noopener noreferrer" class="footerIconAnchors"><i class="fa fa-instagram"></i> instagram</a>&nbsp;
+                    <a title="LinkedIn" href="https://www.linkedin.com/in/harmonycreativestudio-hcs-7669b3185" target="_blank" rel="noopener noreferrer" class="footerIconAnchors"><i class="fa fa-linkedin" style="color:#0e76a8;"></i> linkedin</a>&nbsp;
+                    <a title="Youtube" href="https://www.youtube.com/channel/UC15kg3t1AZUyDQ6ZjzbLNHQ?sub_confirmation=1" class="footerIconAnchors" target="_blank" rel="noopener noreferrer"><i class="fa fa-youtube-play" style="color:#FF0000;"></i> Youtube</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 copyrightFooter mt-2" id="desDevAyush">
+                    Designed and Developed by Ayush
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--<script src="{% static 'js/script.js' %}">-->
+    <script src="{% static 'js/third_party/bootstrap.bundle.min.js' %}" async></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous" async></script>-->
+    <script src="{% static 'js/third_party/jquery.min.js' %}" type="text/javascript"></script> <!--http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js-->
+    <script src="{% static 'js/third_party/ac6d7e3d67.js' %}" crossorigin="anonymous" async defer></script> <!--https://kit.fontawesome.com/ac6d7e3d67.js-->
+    <script>
+        document.onload = function(){
+            // Prevents from auto scrolling of the page sometimes
+            window.scrollTo({left: 0});
+        }
+
+        navbar = document.getElementById("navbar");
+        navbarImg = document.getElementById("navbarImg");
+
+        window.addEventListener("scroll", function() {
+            if(this.pageYOffset > 0) {
+                navbar.classList.add("scrollNav");
+                navbarImg.classList.add("scrollNavImg");
+                navbar.classList.remove('navShadow');
+            }
+            else{
+                navbar.classList.remove("scrollNav");
+                navbarImg.classList.remove("scrollNavImg");
+                navbar.classList.add('navShadow');
+            }
+        });
+
+        // lazy image loading
+        document.addEventListener("DOMContentLoaded", function() {
+            var lazyloadImages = document.querySelectorAll(".lazy");
+            var lazyloadThrottleTimeout;
+
+            function lazyload () {
+                if(lazyloadThrottleTimeout) {
+                    clearTimeout(lazyloadThrottleTimeout);
+                }    
+
+                lazyloadThrottleTimeout = setTimeout(function() {
+                    var lazyScrollTop = window.pageYOffset;
+                    lazyloadImages.forEach(function(img) {
+                        if(img.offsetTop < (window.innerHeight + lazyScrollTop)) {
+                            img.src = img.dataset.src;
+                            img.classList.remove('lazy');
+                        }
+                    });
+                    if(lazyloadImages.length == 0) { 
+                        document.removeEventListener("scroll", lazyload);
+                        window.removeEventListener("resize", lazyload);
+                        window.removeEventListener("orientationChange", lazyload);
+                    }
+                }, 20);
+            }
+            document.addEventListener("scroll", lazyload);
+            window.addEventListener("resize", lazyload);
+            window.addEventListener("orientationChange", lazyload);
+        });
+
+        const mediaQuery = window.matchMedia('(max-width:767.9px)');
+        function handleResize(e){
+            if(mediaQuery.matches){
+                {% block mediaJS %}{% endblock mediaJS %}
+            }
+            else{
+                {% block mediaJSElse %}{% endblock mediaJSElse %}
+            }
+        }
+        mediaQuery.addListener(handleResize); // Register Event Listener
+        handleResize(mediaQuery); // Initial Check
+
+        //Get the top button:
+        goToTopBtn = document.getElementById("goToTopBtn");
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function(ev) {
+            if (document.body.scrollTop > 350 || document.documentElement.scrollTop > 350) {
+                goToTopBtn.classList.add("active");
+
+                // At the bottom of the page, change the opacity of the button
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                    goToTopBtn.style.opacity = '0.5';
+                } else {
+                    goToTopBtn.style.opacity = '1';
+                }
+            } else {
+                goToTopBtn.classList.remove("active");
+            }
+        };
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth',
+            });
+        }
+    </script>
+    {% block js %}{% endblock js %}
+</body>
+
+</html>

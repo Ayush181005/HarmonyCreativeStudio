@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block title %} Blog | HarmonyCreativeStudio {% endblock %}
+{% block blogactive %}active{% endblock blogactive %}
+{% block metaDesc %}Hello{% endblock metaDesc %}
+{% block metaKeywords %}Blog, HarmonyCreativeStudio Blog{% endblock metaKeywords %}
+{% block bodyClass %}bgThread{% endblock bodyClass %}
+
+{% block css %}
+  <!--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
+  <style>
+    .dropdown-active{
+      background-color: #e9ecef;
+    }
+    .dropdown-active:hover{
+      background-color: #dee2e6;
+    }
+    .no-display{
+      display:none;
+    }
+
+    .badge{
+      position: relative;
+      right: 13%;
+      height: 20%;
+    }
+  </style>
+{% endblock css %}
+
+{% block body %}
+  {% if not footerInAir %}
+    <div class="container my-5">
+      <div class="row">
+        <div class="col-md-6">
+          <h3></h3>
+        </div>
+        <div class="col-md-6">
+          <form class="d-flex searchForm" method="get" action="/blog/search/">
+            <input autocomplete="off" name="query" id="query" class="bg-transparent form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn searchBtn" type="submit"><i class="fa fa-search"></i></button>
+          </form>
+        </div>
+      </div>
+
+      <div class="btn-group my-1 mt-5 mb-3">
+        <button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa fa-sort-amount-desc"></i> Sort By
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item {% if popular %}dropdown-active{% endif %}" href="/blog/most-popular">Most Popular</a></li>
+          <li><a class="dropdown-item {% if not newest and not popular %}dropdown-active{% endif %}" href="/blog/oldestFirst">Date Added (Oldest)</a></li>
+          <li><a class="dropdown-item {% if newest %}dropdown-active{% endif %}" href="/blog">Date Added (Newest)</a></li>
+        </ul>
+      </div>
+
+      <!-- Posts and loader -->
+      <span id="posts"></span>
+      <div id="blogLoader" class="row p-5" style="justify-content:center;">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+      </div>
+
+    {% else %}
+      <section style="height:50vh;" class="">
+          <div class="text-gray-600 body-font" style="display:flex;justify-content:center;">
+            <h6 class="p-5">No Posts To Show :(</h6>
+          </div>
+      </section>
+    {% endif %}
+
+    <div class="my-2">
+      {% if prev %}
+        <a href="?page={{prev}}" role="button" class="btn btn-outline-danger"><i class="fa fa-angle-double-left"></i> {% if status == 'newestFirst' %}Newer{% elif status == 'oldestFirst' %}Older{% else %}Previous{% endif %}</a>
+      {% else %}
+        {% comment %} <a href="#" role="button" class="btn btn-outline-danger"><i class="fa fa-angle-double-left"></i> {% if status == 'newestFirst' %}Newer{% else %}Previous{% endif %} </a> {% endcomment %}
+      {% endif %}
+
+      {% if nxt %}
+        <a href="?page={{nxt}}" role="button" class="float-end btn btn-outline-danger">{% if status == 'newestFirst' %}Older{% elif status == 'oldestFirst' %}Newer{% else %}Next{% endif %} <i class="fa fa-angle-double-right"></i></a>
+      {% else %}
+        {% comment %} <a href="#" role="button" class="float-end btn btn-outline-danger">{% if status == 'newestFirst' %}Older{% else %}Next{% endif %} <i class="fa fa-angle-double-right"></i></a> {% endcomment %}
+      {% endif %}
+    </div>
+    <div class="row mt-5"><!--This is just for extra space on bottom--></div>
+  </div>
+{% endblock %}
+
+{% block js %}
+  {% if not footerInAir %}
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+      const blogSpinner = document.getElementById('blogLoader');
+      const posts = document.getElementById('posts');
+      $.ajax({
+          type:'GET',
+          url:'/blog/',
+          success:function(res){
+              blogSpinner.classList.add('no-display');
+              posts.innerHTML = `
+                  {% for post in allPosts %}
+                    <div class="col-md-12">
+                      <div class="noSelect row g-0 border bg-light rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                        <div class="col p-4 d-flex flex-column position-static">
+                          <strong class="d-inline-block mb-2 text-danger">Article by {{post.author}} | {{post.views}} {% if post.views <= 1 %}view{% else %}views{% endif %}</strong>
+                          <h3 class="mb-0">{{post.title}}</h3>
+                          <div class="mb-1 text-muted">{{post.timeStamp}}</div>
+                          <p class="card-text mb-auto"><div class="preview">{{post.content|safe|striptags|truncatechars:90}}</div></p>
+                          <div class="mt-3">
+                            <a href="/blog/{{post.slug}}" role="button" class="btn btn-hcs stretched-link">Continue Reading</a>
+                          </div>
+                        </div>
+                        <div class="col-auto d-none d-lg-block">
+                          <img src="/media/{{post.featureImage}}" alt="" style="height:auto;margin:20px; max-width:400px;border-radius:5px;">
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+              `;
+          },
+          error:function(res){
+              console.log('Error loading the posts...')
+          }
+      });
+      $( function() {
+        $( "#query" ).autocomplete({
+          source: {{ possibleQueries|safe }},
+        });
+      } );
+
+      document.onkeydown = function(e){
+          if(e.which==17){
+            var ctrlPressed = true;
+            document.onkeyup = function(e){
+              if(e.which==191 && ctrlPressed){
+                document.getElementById('query').focus();
+                ctrlPressed = false;
+              }
+            }
+          }
+        }
+    </script>
+  {% endif %}
+{% endblock js %}

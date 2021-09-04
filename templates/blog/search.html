@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block title %} Search Results for {{query|truncatechars:30}} | HarmonyCreativeStudio {% endblock %}
+
+{% block blogactive %}active{% endblock blogactive %}
+
+{% block bodyClass %}bgThread{% endblock bodyClass %}
+
+{% block body %}
+<div class="container my-5">
+    {% if allPosts|length < 1 %}
+        <style>
+            footer{
+                position:absolute;
+                bottom:0;
+                width:100%;
+            }
+        </style>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Search Results for {{query|truncatechars:50}}</h3>
+
+                <div class="col-md-12 mt-5">
+                Your Search - <b>{{query|truncatechars:1000}}</b> - did not match any posts<br>
+                Suggestions:
+                    <ul>
+                        <li>
+                            Try different keywords
+                        </li>
+                        <li>
+                            Try enterring appropriate search query having more atleast three letters
+                        </li>
+                        <li>
+                            Try enterring appropriate search query having less than 100 letters
+                        </li>
+                        <li>
+                            Try genreal keywords
+                        </li>
+                        <li>
+                            Make sure all words are spelled correctly
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <form class="d-flex" method="get" action="/blog/search/">
+                    <input name="query" id="query" class="bg-light form-control me-2" type="search" placeholder="Search (Ctrl + /)" aria-label="Search">
+                    <button class="searchBtn btn" type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Search Results for '{{query|truncatechars:50}}'</h3>
+                <h6>Found {{allPosts|length}}  posts{% comment %} in{{searchTime}} seconds{% endcomment %}.</h6>
+            </div>
+            <div class="col-md-6">
+                <form class="d-flex" method="get" action="/blog/search/">
+                    <input name="query" id="query" class="bg-transparent form-control me-2" type="search" placeholder="Search (Ctrl + /)" aria-label="Search">
+                    <button class="searchBtn btn" type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+        </div>
+
+        {% for post in allPosts %}
+            <div class="col-md-12">
+                <div class="noSelect row g-0 border bg-light rounded overflow-hidden my-4 flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <strong class="d-inline-block mb-2 text-danger">Article by {{post.author}}</strong>
+                    <h3 class="mb-0">{{post.title}}</h3>
+                    <div class="mb-1 text-muted">{{post.timeStamp}} | {{post.views}} {% if post.views <= 1 %}view{% else %}views{% endif %}</div>
+                    <p class="card-text mb-auto"><div class="preview">{{post.content|safe|striptags|truncatechars:90}}</div></p>
+                    <div class="mt-3">
+                        <a href="/blog/{{post.slug}}" role="button" class="btn btn-hcs stretched-link">Continue Reading</a>
+                    </div>
+                </div>
+                <div class="col-auto d-none d-lg-block">
+                    <img src="/media/{{post.featureImage}}" style="height:auto;padding:20px; max-width:400px;">
+                </div>
+                </div>
+            </div>
+        {% endfor %}
+        
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block js %}
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        {% comment %} let previews = document.getElementsByClassName('preview');
+        Array.from(previews).forEach((element)=>{
+        element.innerHTML = element.innerText;
+        }); {% endcomment %}
+
+        document.getElementById('query').value = "{{query}}"
+
+        $( function() {
+            $( "#query" ).autocomplete({
+                source: {{ possibleQueries|safe }}
+            });
+        });
+
+        document.onkeydown = function(e){
+            if(e.which==17){
+                var ctrlPressed = true;
+                document.onkeyup = function(e){
+                    if(e.which==191 && ctrlPressed){
+                        document.getElementById('query').focus();
+                        ctrlPressed = false;
+                    }
+                }
+            }
+        }
+  </script>
+{% endblock js %}

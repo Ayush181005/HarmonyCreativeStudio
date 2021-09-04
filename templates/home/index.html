@@ -1,0 +1,576 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load mathfilters %}
+
+{% block metaDesc %}Hello, World{% endblock metaDesc %}
+
+{% block title %}One Stop Textile Design Solution | HarmonyCreativeStudio{% endblock title %}
+
+{% block bodyClass %}bg-light{% endblock bodyClass %}
+
+{% block css %}
+    <link rel="dns-prefetch" href="https://www.youtube.com/">
+    <link rel="stylesheet" href="{% static "css/swiper-bundle.min.css" %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Fredericka+the+Great&family=Quicksand:wght@600&display=swap" rel="stylesheet">
+    <link href="{% static 'css/aos.css' %}" rel="stylesheet"> <!-- https://unpkg.com/aos@2.3.1/dist/aos.css -->
+    <style>
+        .background{
+            background-size: cover !important;
+            background-blend-mode: lighten;
+            {% comment %} animation: bgAnim 18s infinite linear; {% endcomment %}
+            background-repeat: no-repeat !important;
+            background-attachment: fixed !important;
+            background:  rgba(255, 255 , 255 , 0.7) url('{%static 'images/homeBg/1.jpg'%}');
+            height: 100vh;
+            width: 100vw;
+        }
+        @keyframes bgAnim{
+            10%{background:  rgba(255, 255 , 255 , 0.5) url('{%static 'images/homeBg/2.jpg'%}');}
+            20%{background:  rgba(255, 255 , 255 , 0.8) url('{%static 'images/homeBg/2.jpg'%}');}
+            30%{background:  rgba(255, 255 , 255 , 0.5) url('{%static 'images/homeBg/3.jpg'%}');}
+            40%{background:  rgba(255, 255 , 255 , 0.8) url('{%static 'images/homeBg/3.jpg'%}');}
+            50%{background:  rgba(255, 255 , 255 , 0.5) url('{%static 'images/homeBg/4.jpg'%}');}
+            60%{background:  rgba(255, 255 , 255 , 0.8) url('{%static 'images/homeBg/4.jpg'%}');}
+            70%{background:  rgba(255, 255 , 255 , 0.5) url('{%static 'images/homeBg/5.jpg'%}');}
+            80%{background:  rgba(255, 255 , 255 , 0.8) url('{%static 'images/homeBg/5.jpg'%}');}
+            90%{background:  rgba(255, 255 , 255 , 0.5) url('{%static 'images/homeBg/1.jpg'%}');}
+            100%{background:  rgba(255, 255 , 255 , 0.8) url('{%static 'images/homeBg/1.jpg'%}');}
+        }
+
+        .contactLink{
+            text-decoration: none;
+            color: black;
+            transition: color 2s;
+        }
+        .contactLink:hover{
+            color: gray;
+            text-decoration:underline;
+        }
+
+        .myBtn{
+            border-radius: 25px;
+            box-shadow: 0 0 2px #000000;
+            padding: 10px;
+            width: 50%;
+            background-color:black;
+            color: white;
+            border:none !important;
+            transition: 2s;
+        }
+        .myBtn:hover{
+            background-color:rgb(177, 152, 112);
+        }
+
+        .testimonial-bg{
+            {% comment %} background:url('{% static 'images/TestimonialSlider/bg.jpg' %}'); {% endcomment %}
+            background:url('{% static 'images/TestimonialSlider/bg.jpg' %}');
+            background-size: cover;
+            height: 100%;
+        }
+
+        .swiper-container {
+            width: 45%;
+            height: auto;
+            padding: 50px;
+        }
+
+        .swiper-slide {
+            padding: 10px;
+            width: 300px;
+            height: 300px;
+            background-color: white;
+        }
+
+        @media only screen and (max-width:1000px){
+            .swiper-container{
+                width: 100% !important;
+            }
+        }
+
+        @media only screen and (max-width:350px){
+            #testimonial-content{
+                font-size: 5px;
+            }
+            #testimonial-title{
+                font-size: 10px;
+            }
+        }
+
+        @media only screen and (max-width:540px){
+            .swiper-slide h5{
+                font-size: 15px;
+            }
+
+            .swiper-slide p{
+                font-size: 10px;
+            }
+        }
+
+        .swiper-pagination-bullet{
+            height: 15px !important;
+            width: 15px !important;
+            border-radius: 15px !important;
+            background-color:white !important;
+            cursor: pointer !important;
+            transition: width .5s !important;
+            opacity:1;
+        }
+
+        .swiper-pagination-bullet-active{
+            width: 45px !important;
+        }
+
+        .clientImg{
+            transition: .5s;
+        }
+        .clientImg:hover{
+            transform: scale(.9);
+        }
+
+        .clientImgHovered{
+            background-color:rgba(13, 21, 68, .9);
+            border-radius:20px;
+            color:white;
+            width: 100%;
+            height: 100%;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            transition: 1s;
+        }
+
+        .HarmonyVisible{
+            transform: translateY(-30px);
+            transition: 1s;
+            visibility: visible !important;
+        }
+
+        .aboutmeContent{
+            transition:width 2s;
+        }
+
+        #innerStudioImg {
+            animation: morph 5s ease-in-out infinite both alternate;
+        }
+        @keyframes morph {
+            0% {border-radius: 30% 60% 60% 40% / 60% 30% 70% 40%;} 
+            100% {border-radius: 30% 60%;} 
+        }
+
+        .formInput{
+            border-radius: 25px;
+            {% comment %} border: .5px solid rgba(255, 255, 255, 0) !important; {% endcomment %}
+            border: .5px solid #f8f9fa !important;
+            background-color: #f8f9fa;
+            box-shadow: inset 3px 2px 5px 1px #ded7d7, inset -0.5px -0.1px 5px 1px #ded7d7;
+            padding: 10px;
+            width: 50%;
+            transition: border .5s, box-shadow .2s;
+        }
+        .formInput:focus{
+            border: .5px solid rgb(13, 21, 68) !important;
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .teamImg{
+            width:auto;
+            height:auto;
+        }
+
+        @media only screen and (max-width: 768px) and (min-width: 500px){
+            #innerStudioImg{
+                max-height:50% !important;
+            }
+        }
+    </style>
+{% endblock css %}
+
+{% block body %}
+    <section class="background">
+        <div class="box-main">
+            <div class="firstHalf text-center">
+                <h1 id="HarmonyStartTextUpper" style="color:rgb(13, 21, 68);cursor: default;visibility:hidden;font-family:'Quicksand', sans-serif;"><span class="text3D"><span class="HarmonyTextLetter">H</span><span class='HarmontTextWord'>armony</span><span class="HarmonyTextLetter"> C</span><span class='HarmontTextWord'>reative</span><span class="HarmonyTextLetter"> S</span><span class='HarmontTextWord'>tudio</span></span></h1>
+                <h1 style="cursor: default;color:rgb(13, 21, 68);font-family:'Quicksand', sans-serif;"><span id="typing" class="p-1 HarmontTextWord"></span></h1>
+            </div>
+        </div>
+        <div style="display:flex;flex-direction:row; justify-content:center;">
+            <svg class="arrows" id="arrows">
+              <path class="a1" d="M0 0 L30 32 L60 0"></path>
+              <path class="a2" d="M0 20 L30 52 L60 20"></path>
+              <path class="a3" d="M0 40 L30 72 L60 40"></path>
+            </svg>
+        </div>
+    </section>
+
+    <section id="aboutstudio"><br><br>
+        <div class="container-fluid p-4">
+            <h1 id="aboutstudioHeading" style="color:red;font-family: 'Fredericka the Great', cursive;" data-aos="flip-left" data-aos-easing="ease-out-cubic" data-aos-duration="2000" data-aos-once="true">Our Studio</h1>
+            <div class="mr-5 px-4"><hr class='mr-5'></div>
+            <div style="font-family: Arial, Helvetica, sans-serif; font-size:15px;" data-aos="zoom-out" data-aos-once="true" class="row">
+                <div class="col-md-6" style="font-family: Arial, Helvetica, sans-serif; font-size:15px;">
+                    HarmonyCreativeStudio is a complete Textile and Fashion design & consulting studio setup by a team of graduates from Reputed Institutes of Textile & Design from Ahmedabad, India.</p><p>
+                    For designers, retailers and manufacturers worldwide HarmonyCreativeStudio provides that essential first step in the critical path from concept to production. The studio provides design & consulting services to companies in India and abroad who are looking at quality textiles.</p><p>
+                    At HarmonyCreativeStudio we are obsessed with our seasonal trend-forward, woven &print collections are constantly being updated by our design team.</p><p>
+                    The Design team in the past have worked with some of the biggest corporate in textile sector. They have been associated very closely with organizations working towards the development of Textiles across the country.</p><p>
+                    HarmonyCreativeStudio aims to provide well-defined, stylish and contemporary patterns and designs, to those who look for perfection in their apparels. We provide related services like textile and fashion design consultancy that encompasses manufacturing of accessories, fabric designs, yarn designs, color development, styling, presentation, cloth sampling, and production. The constant evolution in fashion and textile industry needs a lot of creativity and planning and so we work forth to inculcate our share of difference in the fashion standards.</p>
+                </div>
+                <div id="outerStudioImg" class="col-md-6 colImg" style="display:flex; flex-direction:row;justify-content:center;">
+                    <img id="innerStudioImg" class="lazy" data-aos="zoom-in-right" data-aos-once="true" data-src="{% static 'images/About Studio/1.jpg' %}" alt="" style="max-width:85%;max-height:70%;min-height:300px;display:block;margin:auto;">
+                </div>
+            </div>
+            <div class="row">
+                <h2 style="font-family: 'Fredericka the Great', cursive;"><span style="margin-left:40px;">Services<span></h2>
+                <div class="col-md-6 colImg my-2" style="display:flex;justify-content:center;">
+                    <!--<img data-aos="zoom-in-left" class="lazy" data-aos-once="true" data-src="{% static 'images/About Studio/1.jpg' %}" alt="" style="max-width:85%">-->
+                    <iframe data-aos="zoom-in-left" class="yt-lazy" data-aos-once="true" style="width:85%;border-radius: 10px;min-height:250px;" data-src="https://www.youtube.com/embed/rY3pKPIId5g?rel=0&modestbranding=1" title="Imagination - Innovation - Creation" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;" allowfullscreen></iframe>
+                </div>
+                <div class="col-md-6" style="font-family: Arial, Helvetica, sans-serif; font-size:15px;" data-aos="zoom-out-down" data-aos-once="true">
+                    <p>HarmonyCreativeStudio is a complete textile design, consultancy and production studio providing the most creative facilities. The services and products offered are detailed below:</p>
+                    <ul>
+                        <li>Development of CADs and samples for woven fabric collections.</li>
+                        <li>Season forecasts and presentation packages for Textile industry based on international trend studies.</li>
+                        <li>Coordinated print and surface texture collection with samples and color options.</li>
+                    </ul>
+                    <p>Our textile fabric consultants have the vision for futuristic trends that produce textile design solutions which will be adored by our clients.</p>
+                    <p>Fashion is the key to render one’s prediction of own personality and style and now-a-days it is identified with status. Our fashion designing studio provides the clients with the perfect fit for the lifestyle.</p>
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <h2 style="font-family: 'Fredericka the Great', cursive;">Our Team</h2>
+                    <div class="container mt-4">
+                        <section class="customer-logos slider teamSlider">
+                            {% for teamMember in allTeamMembers %}
+                                <div class="slide teamMemberCard">
+                                    <div class="ml-3">
+                                        <img class="teamImg lazy" data-src="/media/{{teamMember.photo}}" style="border-radius:10px;" alt="{{teamMember.name}} Image">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-center">{{teamMember.name}}</h5>
+                                            <p class="card-text-small text-center">{{teamMember.designation}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="aboutme"><br>
+        <div class="container-fluid m-y p-4">
+            <h1 style="font-family: 'Alex Brush', cursive;font-weight: bold;" data-aos="fade-right" data-aos-offset="100" data-aos-easing="ease-in-sine" data-aos-once="true">Zarna</h1>
+            <div class="mr-5 px-4"><hr class='mr-5'></div>
+            <div class="row">
+                <div class="col-md-7" style="font-family: Arial, Helvetica, sans-serif; font-size:15px;" data-aos="fade-up" data-aos-duration="1000" data-aos-once="true">
+                    <p>Zarna is a passionate designer with excellent communication and presentation skill.With the experience of {{experience}} years in the field of textile designing, she believes in strong work ethics and discipline along with innovative thinking.</p>
+                    <p>She has worked with almost all leading export and domestic brands and has deep understanding of global market and forecasting woven fabrics for men and women for relevant markets.</p><p>Graduated from one of the India’s premier engineering college, Zarna has gained deep knowledge of fabric designing with woven technics. She had started her career as a designer at B.V.M. (Textile division of Sintex industries Ltd.),enhanced her knowledge withfusion of technical & creative designing. At Ashima Ltd., she worked for almost more than seven years, for almost all the major brands across the globe. Lastly, she was heading Design Studio at B.V.M. (Textile division of Sintex industries Ltd.). Her versatility and ability to work with people from diverse background and all level of management added flavour to her work.</p><p>She had designed successful seasonal fabric collections for Men and Women at B.V.M. and presented to various exports and domestic brands. Vision to work towards trend forecast and market requirement aspects has made her collection useful for the designers.</p><p>She believes in spreading knowledge and creating designers for tomorrow’s world. She had guided students from leading fashion and design institutes like NID, NIFT, LDCE, Vanasthali institute, UID etc.</p>
+                </div>
+                <div class="col-md-5" style="display:flex; flex-direction:column; padding: 20px">
+                    {# <img src="{% static 'images/About Me/1.jpg' %}" alt="" style='max-width:300px; border:10px solid white;'> #}
+                    <img data-aos="zoom-in-left" class="lazy" data-aos-once="true" data-src="{% static 'images/About Me/2.jpg' %}" alt="" style='max-height:350px;border:10px solid white;max-width: 683.33px;border-radius:15px;'>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="p-4 testimonial-section">
+        <div class="testimonial-bg p-4" style="border-radius:10px;">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    {% for testimonial in allTestimonials %}
+                        <div class="swiper-slide" style="height:100% !important;border-radius:10px !important;">
+                            <div class="row">
+                                <h5 id="testimonial-title">{{testimonial.nameAndDesignation}}</h5>
+                                <p id="testimonial-content">{{testimonial.content}}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+{% comment %}
+    <div class="row my-3 p-3" style="justify-content:center;">
+        <h2 style="font-family: 'Fredericka the Great', cursive;">Our Clients</h2>
+            <div class="container mt-4">
+                <section class="customer-logos slider teamSlider">
+                    {% for client in allClients %}
+                        <div class="slide">
+                            <div class="ml-3" style="display:flex;flex-direction:column;">
+                                <div class="clientImg" style="background:url('/media/{{client.logo}}');height:100px;background-size:contain;width:auto;background-repeat: no-repeat;background-position: center;">
+                                    <h5 class="text-center clientName"></h5>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </section>
+            </div>
+        </div>
+    </div>
+{% endcomment %}
+    <section id="contact"><br>
+        <div class="m-4 p-4">
+            <h1 class="mt-3" style="font-family: 'Fredericka the Great', cursive;">Get in Touch</h1>
+            {% if messageForContact %}
+                {% for message in messages %}
+                    <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert" style="font-family: 'Yatra One', cursive;">
+                        MESSAGE: {{message|safe}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <div class="mr-5 px-4"><hr class='mr-5'></div>
+
+            <div class="row" style="cursor:default;">
+                <div class="col-md-6 text-end" id="contactPhone" style='color: gray;'><small>Phone</small></div>
+                <div class="col-md-6" id="contactPhoneDisplay">
+                    <a href="tel:+917383041218" class="contactLink">+91-738-304-1218</a>
+                </div>
+            </div>
+            <div class="row" style="cursor:default;">
+                <div class="col-md-6 text-end" id="contactEmail" style='color: gray;'><small>Email</small></div>
+                <div class="col-md-6" id="contactEmailDisplay">
+                    <a class="contactLink" href='mailto:info@harmonycreativestudio.in' style="text-transform: none;">info@harmonycreativestudio.in</a>
+                </div>
+            </div>
+            <div class="row" style="cursor:default;">
+                <div class="col-md-6 text-end" id="contactAddress" style='color: gray;'><small>Address</small></div>
+                <div class="col-md-6" id="contactAddressDisplay">
+                    <a href='https://goo.gl/maps/byia9HbBsJMibR4e9' target="_blank" class="contactLink" style="text-transform: none;">HarmonyCreativeStudio</a><br>x, y floor, <br>Pehel, Nr. Vaishnowdevi Circle<br>
+                </div>
+            </div>
+        </div>
+
+        <div class="m-4 p-4">
+            <form action="/#contact" method="post" id="contactForm">
+                {% csrf_token %}
+                <div class="row g-3 p-0" id='formRow1'>
+                    <div class="col-md-6 text-end" id="formNameDiv">
+                        <input type="text" id='name' name='name' placeholder="Your Name Here*" class='formInput' required>
+                    </div>
+                    <div class="col-md-6" id="formEmailDiv">
+                        <input type="email" id='email' name='email' placeholder="Your email Here*" class='formInput' required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center mt-3">
+                        <input type="text" id='subject' name='subject' placeholder="Your Subject Here" class='formInput'>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center mt-3">
+                        <textarea class="formInput" name="content" id="content" cols="30" rows="10" placeholder="Your message here*" required></textarea>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center mt-3">
+                        <button class="myBtn" type="submit">SEND MESSAGE</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock body %}
+
+{% block js %}
+    <script src="{% static 'js/third_party/swiper-bundle.min.js' %}"></script> <!--https://unpkg.com/swiper/swiper-bundle.min.js-->
+    <script src="{% static 'js/third_party/slick.js' %}"></script> <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>-->
+    <script src="{% static 'js/third_party/typed.min.js' %}" async defer></script> <!--https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.9/typed.min.js-->
+    <script src="{% static 'js/third_party/aos.js' %}"></script> <!-- https://unpkg.com/aos@2.3.1/dist/aos.js -->
+    <script>
+        window.onload = function () {
+            var typed = new Typed('#typing', {
+                strings: ["<span id='startTextHarmony' class='text3D'><span class='HarmonyTextLetter'>H</span><span class='HarmontTextWord'>armony</span><span class='HarmonyTextLetter'> C</span><span class='HarmontTextWord'>reative</span><span class='HarmonyTextLetter'> S</span><span class='HarmontTextWord'>tudio</span></span>", '', "Imagination. Innovation. Creation.", "<a href='/portfolio/mens-formal' style='text-decoration:none !important;color:rgb(13,21,68) !important'>Men's Formal</a> and <a href='/portfolio/mens-casual' style='text-decoration:none !important;color:rgb(13,21,68) !important'>Casual Collection<a>", "<a href='/portfolio/womens-casual' style='text-decoration:none !important;color:rgb(13,21,68) !important'>Women's Casual Collection</a>", "<a href='/portfolio/color-inpirations' style='text-decoration:none !important;color:rgb(13,21,68) !important'>Color Inspiration</a>", "<a href='/portfolio/kids-collection' style='text-decoration:none !important;color:rgb(13,21,68) !important'>Kid's Collection</a>"],
+                backSpeed: 15,
+                smartBackspace: true,
+                backDelay: 1500,
+                startDelay: 0,
+                typeSpeed: 25,
+                loop: true,
+                showCursor: false,
+            });
+            HarmonyType(typed);
+        };
+        function HarmonyType(typed){
+            var HarmonyTextExists = false;
+            var harmonyTextInterval = setInterval(function(){
+                let startHarmonyExists = document.getElementById('startTextHarmony');
+                if(startHarmonyExists!=null && !HarmonyTextExists){
+                    typed['strings'].shift();
+                    HarmonyTextExists = true;
+                    setTimeout(function(){
+                        document.getElementById('HarmonyStartTextUpper').classList.add('HarmonyVisible');
+                        document.querySelector('.background').style.animation = "bgAnim 18s infinite linear";
+                        clearInterval(harmonyTextInterval);
+                    }, 4000);
+                }
+            }, 200);
+        }
+
+        AOS.init();
+
+        $('.customer-logos').slick({
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 1500,
+            arrows: false,
+            dots: false,
+            pauseOnHover: false,
+            responsive: [{
+                breakpoint: 800,
+                settings: {
+                    slidesToShow: 3
+                }
+            }, {
+                breakpoint: 520,
+                settings: {
+                    slidesToShow: 2
+                }
+            }, {
+                breakpoint: 350,
+                settings: {
+                    slidesToShow: 1
+                }
+            }]
+        });
+
+        function Utils(){}
+        Utils.prototype = {
+            constructor: Utils,
+            isElementInView: function (element, fullyInView) {
+                var pageTop = $(window).scrollTop();
+                var pageBottom = pageTop + $(window).height();
+                var elementTop = $(element).offset().top;
+                var elementBottom = elementTop + $(element).height();
+
+                if (fullyInView === true) {
+                    return ((pageTop < elementTop) && (pageBottom > elementBottom));
+                } else {
+                    return ((elementTop <= pageBottom) && (elementBottom >= pageTop));
+                }
+            }
+        };
+        var Utils = new Utils();
+        window.addEventListener("scroll", function() {
+            var isContact = Utils.isElementInView($('#contact'), false);
+            var isAboutMeElement = Utils.isElementInView($('#aboutme'), false);
+            var isAboutStudioElement = Utils.isElementInView($('#aboutstudio'), false);
+
+            if (isAboutStudioElement) {
+                document.getElementById('navAboutStudio').classList.add('active');
+                document.getElementById('navAboutMe').classList.remove('active');
+                document.getElementById('navContact').classList.remove('active');
+            } else {
+                document.getElementById('navAboutStudio').classList.remove('active');
+            }
+
+            if (isAboutMeElement) {
+                document.getElementById('navAboutMe').classList.add('active');
+                document.getElementById('navAboutStudio').classList.remove('active');
+                document.getElementById('navContact').classList.remove('active');
+            } else {
+                document.getElementById('navAboutMe').classList.remove('active');
+            }
+
+            if (isContact) {
+                document.getElementById('navAboutMe').classList.remove('active');
+                document.getElementById('navContact').classList.add('active');
+                document.getElementById('navAboutStudio').classList.remove('active');
+            } else {
+                document.getElementById('navContact').classList.remove('active');
+            }
+
+            if(document.querySelector('iframe').classList.contains('yt-lazy')){
+                if(Utils.isElementInView($('.yt-lazy'), false)){
+                    document.querySelectorAll('.yt-lazy').forEach(function(elem){
+                        elem.src = elem.dataset.src;
+                        elem.classList.remove('yt-lazy');
+                    });
+                }
+            }
+        });
+
+        /* Testimonial Slider */
+        var swiper = new Swiper('.swiper-container', {
+            effect: 'flip',
+            grabCursor: true,
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+        });
+{% comment %} 
+        {% for client in allClients %}
+            document.getElementsByClassName('clientImg')[{{forloop.counter|sub:1}}].onmouseover = function(){
+                document.getElementsByClassName('clientName')[{{forloop.counter|sub:1}}].classList.add('clientImgHovered');
+                document.getElementsByClassName('clientName')[{{forloop.counter|sub:1}}].innerText = '{{client.name}}';
+            }
+            document.getElementsByClassName('clientImg')[{{forloop.counter|sub:1}}].onmouseout = function(){
+                document.getElementsByClassName('clientName')[{{forloop.counter|sub:1}}].classList.remove('clientImgHovered');
+                document.getElementsByClassName('clientName')[{{forloop.counter|sub:1}}].innerText = '';
+            }
+        {% endfor %}
+{% endcomment %}
+        document.getElementById('arrows').onclick = function(){
+            document.getElementById('aboutstudio').scrollIntoView();
+        };
+
+        {% if isError %}
+            document.getElementById('name').value = "{{errName}}";
+            document.getElementById('email').value = "{{errEmail}}";
+            document.getElementById('subject').value = "{{errSubject}}";
+            document.getElementById('content').value = "{{errContent}}";
+        {% elif user.is_authenticated %}
+            document.getElementById('name').value = "{{request.user.get_full_name}}";
+            document.getElementById('email').value = "{{request.user.email}}";
+        {% endif %}
+    </script>
+{% endblock js %}
+
+{% block mediaJS %}
+    document.getElementById('footerIcons').classList.remove('text-end');
+    document.getElementById('footerIcons').classList.add('text-center');
+    document.getElementById('contactPhone').classList.remove('text-end');
+    document.getElementById('contactEmail').classList.remove('text-end');
+    document.getElementById('contactAddress').classList.remove('text-end');
+    document.getElementById('contactPhone').classList.add('text-center');
+    document.getElementById('contactEmail').classList.add('text-center');
+    document.getElementById('contactAddress').classList.add('text-center');
+    document.getElementById('contactPhoneDisplay').classList.add('text-center');
+    document.getElementById('contactEmailDisplay').classList.add('text-center');
+    document.getElementById('contactAddressDisplay').classList.add('text-center');
+    document.getElementById('formRow1').classList.add('noClass');
+    document.getElementById('formNameDiv').classList.add('text-center');
+    document.getElementById('formNameDiv').classList.remove('text-end');
+    document.getElementById('formEmailDiv').classList.add('text-center');
+{% endblock mediaJS %}
+{% block mediaJSElse %}
+    document.getElementById('footerIcons').classList.add('text-end');
+    document.getElementById('footerIcons').classList.remove('text-center');
+    document.getElementById('contactPhone').classList.add('text-end');
+    document.getElementById('contactEmail').classList.add('text-end');
+    document.getElementById('contactAddress').classList.add('text-end');
+    document.getElementById('contactPhone').classList.remove('text-center');
+    document.getElementById('contactEmail').classList.remove('text-center');
+    document.getElementById('contactAddress').classList.remove('text-center');
+    document.getElementById('contactPhoneDisplay').classList.remove('text-center');
+    document.getElementById('contactEmailDisplay').classList.remove('text-center');
+    document.getElementById('contactAddressDisplay').classList.remove('text-center');
+    document.getElementById('formRow1').classList.remove('noClass');
+    document.getElementById('formNameDiv').classList.remove('text-center');
+    document.getElementById('formNameDiv').classList.add('text-end');
+    document.getElementById('formEmailDiv').classList.remove('text-center');
+{% endblock mediaJSElse %}

@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{post.title}} | HarmonyCreativeStudio {% endblock %}
+{% block blogactive %}active{% endblock blogactive %}
+{% block metaKeywords %}{{post.keywords}}{% endblock metaKeywords %}
+{% block metaDesc %}{{post.metaDesc}}{% endblock metaDesc %}
+
+{% block css %}
+    <style>
+        .blogPostBg{
+            width: 100%;
+        }
+
+        img{
+            border-radius:5px;
+        }
+
+        @media only screen and (max-width:540px){
+            .blogPostBg{
+                width: 100%;
+            }
+
+            .userIcon{
+                width:50px !important;
+                height: auto !important;
+                margin-left: 0 !important;
+                display: none !important;
+            }
+            .repLogo{
+                margin-left: 10% !important;
+                display: none !important;
+            }
+
+            .sub{
+                margin-top:5px !important;
+                padding:.25rem .5rem;
+                font-size:.875rem;
+                border-radius:.2rem
+            }
+
+            .repDiv{
+                margin-left:20px !important;
+            }
+        }
+    </style>
+{% endblock css %}
+
+{% block bodyClass %}bg-light{% endblock bodyClass %}
+
+{% block body %}
+
+{% load humanize %}
+{% load extras %}
+
+<div class="container mb-1">
+    <div class="row mt-4">
+        <div class="col-md-12 bg-light rounded">
+            <h2 class="fst-italic">{{post.title}}</h2>
+            <p class="blog-post-meta mb-4">
+                {{post.pub_date}}{{post.timeStamp}}, by '{{post.author}}' | {{post.views}} {% if post.views <= 1 %}view{% else %}views{% endif %}
+            </p>
+            
+            <hr>
+
+            <!--<div class="p-4">
+                <img class="blogPostBg" src="/media/{{post.featureImage}}" alt="">
+            </div>-->
+
+            <article class="blog-post">
+                <p>{{post.content|safe}}</p>
+            </article>
+        </div>
+    </div>
+
+    <hr>
+    
+    <div class="row mt-4">
+        <div class="col-md-12 p-4 bg-light rounded" id="commentAndReply">
+            <h2>Comments ({{comments.count}})</h2>
+            {% if user.is_anonymous %}
+                <p>Please, Login To Post a Comment</p>
+            {% else %}
+                <form action="/blog/postComment" method="post" class="my-4">
+                    {% csrf_token %}
+                    <div class="form-group col-md-1">
+                        <input type="hidden" name="postSno" value="{{post.sno}}">
+                        <input type="hidden" name="parentSno" value="">
+                    </div>
+                    <div class="row">                    
+                        <div class="form-group col-md-6">
+                            <input class="form-control" type="text" name="comment" placeholder="Post Your Comment">
+                        </div>                    
+                        <div class="form-group col-md-2">
+                            <input class="btn btn-success sub" type="submit" value="Submit">
+                        </div>
+                    </div>
+                </form>
+            {% endif %}
+
+            {% for comment in comments %}
+                <div class="row my-3">
+                    <div class="col-md-1">
+                        <img class="userIcon border mx-auto d-block w-100 p-2 lazy" style="border-radius:23px" data-src="/static/images/blogPost/user.png"  alt="">
+                    </div>
+                    <div class="col-md-11">
+                        <b>{{comment.user.username}}</b> <span class="badge bg-secondary">{{comment.timestamp|naturaltime}}</span>
+                        <div>{{comment.comments}}</div>
+
+                        {% if user.is_superuser %}
+                            <div class="reply mx-0 mt-2">
+                                <button class="btn btn-sm btn-outline-danger" type="button" data-bs-toggle="collapse" data-bs-target="#replyBox{{comment.sno}}" aria-expanded="false" aria-controls="replyBox{{comment.sno}}">
+                                    Reply
+                                </button>
+                                <div class="collapse" id="replyBox{{comment.sno}}">
+                                    <div class="my-2">                                    
+                                        <form action="/blog/postComment" method="post" class="my-4">
+                                            {% csrf_token %}
+                                            <div class="form-group col-md-1">
+                                                <input type="hidden" name="postSno" value="{{post.sno}}">
+                                                <input type="hidden" name="parentSno" value="{{comment.sno}}">
+                                            </div>
+                                            <div class="row">                    
+                                                <div class="form-group col-md-6">
+                                                    <input class="form-control" type="text" name="comment" placeholder="Post Your Reply">
+                                                </div>                    
+                                                <div class="form-group col-md-2">
+                                                    <input class="btn btn-success sub" type="submit" value="Submit">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                <div class="replies my-2 p-2">
+                                    {% for reply in replyDict|get_val:comment.sno %}
+                                        <div class="row my-2 repDiv">
+                                            <div class="col-md-1">
+                                                <img class="repLogo rounded border mx-auto d-block p-2 lazy" style="border-radius:23px" data-src="/static/images/blogPost/user.png" alt="" width="50px">
+                                            </div>
+                                            <div class="col-md-11">
+                                                <b><!--{{reply.user.username}}-->HarmonyCreativeStudio</b> <span class="badge bg-secondary">{{reply.timestamp|naturaltime}}</span>
+                                                <div>{{reply.comments}}</div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>                    
+                    </div>
+                <div class="row my-3">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
