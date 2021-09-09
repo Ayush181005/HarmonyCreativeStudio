@@ -13,7 +13,6 @@ def blogHome(request):
         page = 1
     else:
         page = int(page)
-    # print(page)
 
     allPosts = Post.objects.all()
     length = len(allPosts)
@@ -82,7 +81,6 @@ def blogPost(request, slug):
     post.save()
 
     context = {'post': post, 'comments': comments, 'user': request.user, 'replyDict': repDict, 'isBlog': isBlog}
-    # return HttpResponse(f'Blog blogPost: {slug}')
     return render(request, 'blog/blogPost.html', context)
 
 def postComment(request):

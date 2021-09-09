@@ -68,7 +68,7 @@
             <div class="col-md-12">
                 <div class="noSelect row g-0 border bg-light rounded overflow-hidden my-4 flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                 <div class="col p-4 d-flex flex-column position-static">
-                    <strong class="d-inline-block mb-2 text-danger">Article by {{post.author}}</strong>
+                    <strong class="d-inline-block mb-2 text-danger">Article by {% if post.authorLink %}<a class="text-danger" href="{{post.authorLink}}">{% endif %}{{post.author}}{% if post.authorLink %}</a>{% endif %}</strong>
                     <h3 class="mb-0">{{post.title}}</h3>
                     <div class="mb-1 text-muted">{{post.timeStamp}} | {{post.views}} {% if post.views <= 1 %}view{% else %}views{% endif %}</div>
                     <p class="card-text mb-auto"><div class="preview">{{post.content|safe|striptags|truncatechars:90}}</div></p>
@@ -90,11 +90,6 @@
 {% block js %}
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
-        {% comment %} let previews = document.getElementsByClassName('preview');
-        Array.from(previews).forEach((element)=>{
-        element.innerHTML = element.innerText;
-        }); {% endcomment %}
-
         document.getElementById('query').value = "{{query}}"
 
         $( function() {

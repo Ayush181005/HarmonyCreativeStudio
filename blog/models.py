@@ -10,6 +10,7 @@ class Post(models.Model):
     content = models.TextField()
     keywords = models.CharField(default="", max_length=600, help_text="Seperate by Comma and space (', ')")
     author = models.CharField(max_length=225)
+    authorLink = models.CharField(max_length=500, blank=True)
     slug = models.CharField(max_length=130)
     timeStamp = models.DateTimeField()
     featureImage = models.ImageField(upload_to="blog/images")

@@ -25,16 +25,16 @@
             <p class="mb-1"><span class="noSelect">Name: </span>{{ user.get_full_name }} {% if user.is_superuser %}<span class="badge rounded-pill bg-danger">Super User</span>{% endif %}</p>
             <p class="mb-1"><span class="noSelect">Username: </span>{{ user.username }}</p>
             <p class="mb-1"><span class="noSelect">Email: </span>{{ user.email }}</p>
+            <a href="/reset-password">Change Password?</a>
+            <div class="row p-2">
+                <button class="btn btn-danger btn-sm col-md-6" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete Account</button>
+                <button class="btn btn-warning btn-sm col-md-6" type="button" data-bs-toggle="modal" data-bs-target="#updateModal">Update Account</button>
+            </div>
         </div>
     </div>
 
-    <div style="display:flex;justify-content:center;" class="mb-3">
-        <a href="/reset-password">Change Password?</a>
-    </div>
 
     <div style="display:flex;justify-content:center;" class="mb-3">
-        <button class="btn btn-danger btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete Account</button>
-
         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -51,8 +51,6 @@
     </div>
 
     <div style="display:flex;justify-content:center;" class="mb-3">
-        <button class="btn btn-warning btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#updateModal" style="margin-bottom:6px;">Update Account</button>
-
         <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">

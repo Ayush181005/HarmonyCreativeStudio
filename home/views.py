@@ -15,7 +15,6 @@ def home(request):
 
     current_date = date.today()
     current_year = current_date.year
-    # print(type(current_year))
     experience = current_year - 2002
 
     isPost = False
@@ -33,7 +32,7 @@ def home(request):
             isPost = True
     
     if(isPost):
-        messages.info(request, 'There is a post uploaded by HarmonyCreativeStudio in last 2 days, to view that go to the blog page!')
+        messages.info(request, 'There is a <a class="text-dark" href="/blog/'+post.slug+'">Post</a> uploaded by HarmonyCreativeStudio in last 2 days, to view that go to the <a class="text-dark" href="/blog">Blog Page</a>!')
 
     allTestimonials = Testimonial.objects.all()
     allClients = Client.objects.all()
@@ -64,11 +63,6 @@ def home(request):
             contact = Contact(name=name, email=email, subject=subject, content=content)
             contact.save()
 
-            # s = smtplib.SMTP('smtp.gmail.com', 587)
-            # s.starttls()
-            # s.login(GMAIL_ID, GMAIL_PSWD)
-            # s.sendmail(GMAIL_ID, 'info@harmonycreativestudio.in', f"Subject: Contact Recieved\n\nThere is a message from {contact.name} through the Contact Us form on harmonycreativestudio.in.\nMailID of Contact: {contact.email}\nSubject: {contact.subject}\nMessage: {contact.content}")
-            # s.quit()
             send_mail("Contact Recieved", f"There is a message from {contact.name} through the Contact Us form on harmonycreativestudio.in.\nMailID of Contact: {contact.email}\nSubject: {contact.subject}\nMessage: {contact.content}", 'hcstudio14@gmail.com', ['info@harmonycreativestudio.in'], fail_silently=False)
 
             messages.success(request, 'Your message has been sent! We will get back to you shortly!')
@@ -123,7 +117,7 @@ def handleSignup(request):
         orgName = request.POST['orgName']
 
         # Check for errorneous inputs
-        if len(username) > 10:
+        if len(username) >= 10:
             messages.error(request, 'Username must be under 10 characters.')
             return redirect(request.META.get('HTTP_REFERER', 'home'))
         if not username.isalnum():           # It should be alpha numeric
@@ -143,11 +137,6 @@ def handleSignup(request):
         myuser.orgName = orgName
         myuser.save()
 
-        # s = smtplib.SMTP('smtp.gmail.com', 587)
-        # s.starttls()
-        # s.login(GMAIL_ID, GMAIL_PSWD)
-        # s.sendmail(GMAIL_ID, 'info@harmonycreativestudio.in', f"Subject: Someone Signed Up on harmonycreativestudio.in\n\nName: {name}\nusername: {username}\nPhone No.: {phone}\nEmailID: {email}\nOrganisation: {orgName}")
-        # s.quit()
         send_mail("Someone Signed Up on harmonycreativestudio.in", f"Name: {name}\nusername: {username}\nPhone No.: {phone}\nEmailID: {email}\nOrganisation: {orgName}", 'hcstudio14@gmail.com', ['info@harmonycreativestudio.in'], fail_silently=False)
 
         user = authenticate(username=username, password=pass1)
@@ -156,7 +145,7 @@ def handleSignup(request):
 
         return redirect(request.META.get('HTTP_REFERER', 'home'))
     else:
-        return HttpResponse('404 - Request Not Found')
+        return HttpResponse('Request Not Found', status=404)
 
 def handleLogin(request):
     if request.method == 'POST':
@@ -168,47 +157,55 @@ def handleLogin(request):
         if user is not None:
             login(request, user)
             messages.success(request, 'Login Successful!')
-            # return redirect('home')
             return redirect(request.META.get('HTTP_REFERER', 'home'))
         else:
-            messages.error(request, 'Invalid Credentials, Please try in Again.')
-            # return redirect('home')
+            messages.error(request, 'Invalid Credentials, Please try Again.')
             return redirect(request.META.get('HTTP_REFERER', 'home'))
 
     else:
-        return HttpResponse('404 - Request Not Found')
+        return HttpResponse('Request Not Found', status=404)
 
 def handleLogout(request):
     logout(request)
     messages.success(request, 'Successfully Logged Out!')
-    # return redirect('home')
     return redirect(request.META.get('HTTP_REFERER', 'home'))
 
 def deleteAccount(request):
     request.user.delete()
-    return redirect('/')
+    return redirect(request.META.get('HTTP_REFERER', 'home'))
 
 def updateAccount(request):
     if request.method == 'POST':
         nameUpdate = request.POST['nameUpdate']
         usernameUpdate = request.POST['usernameUpdate']
         emailUpdate = request.POST['emailUpdate']
+        isError = False
 
-        user = User.objects.get(username = request.user.username)
-        user.first_name = nameUpdate
-        user.last_name = ''
-        user.username = usernameUpdate
-        user.email = emailUpdate
-        user.save()
-        print(user.username)
+        if len(usernameUpdate) >= 10:
+            messages.error(request, 'Username must be under 10 characters.')
+            isError = True
+        if not usernameUpdate.isalnum():
+            messages.error(request, 'Username should only contain letters and numbers.')
+            isError = True
+        if User.objects.filter(username=usernameUpdate).exists():
+            messages.error(request, 'The username is already taken by someone else! Please try another one.')
+            isError = True
 
-        return redirect('/my-account')
+        if not isError:
+            user = User.objects.get(username = request.user.username)
+            user.first_name = nameUpdate
+            user.last_name = ''
+            user.username = usernameUpdate
+            user.email = emailUpdate
+            user.save()
+
+        return redirect(request.META.get('HTTP_REFERER', 'myAccount'))
 
 def myAccount(request):
     if request.user.is_authenticated:
-        return render(request, 'home/account/myAccount.html')
+        return render(request, 'home/account/myAccount.html', {'footerInAir':True})
     else:
-        return HttpResponse("Login to access this page", status=401)
+        return HttpResponse("Access Denied", status=401)
 
 def page_not_found_view(request, exception):
     return render(request, 'home/custom_errors/page_not_found.html', {'footerInAir':True})
@@ -228,4 +225,4 @@ def broadCastMsg(request):
             broadCastMessage.save()
         return render(request, 'home/broadCastMsg.html', {'footerInAir':True})
     else:
-        return HttpResponse("Access Denied")
+        return HttpResponse("Access Denied", status=401)

@@ -58,14 +58,14 @@
         <div class="col-md-12 bg-light rounded">
             <h2 class="fst-italic">{{post.title}}</h2>
             <p class="blog-post-meta mb-4">
-                {{post.pub_date}}{{post.timeStamp}}, by '{{post.author}}' | {{post.views}} {% if post.views <= 1 %}view{% else %}views{% endif %}
+                {{post.pub_date}}{{post.timeStamp}}, by <b>{% if post.authorLink %}<a href="{{post.authorLink}}">{% endif %}{{post.author}}{% if post.authorLink %}</a>{% endif %}</b> | {{post.views}} {% if post.views <= 1 %}view{% else %}views{% endif %}
             </p>
             
             <hr>
 
-            <!--<div class="p-4">
+            <div class="p-4">
                 <img class="blogPostBg" src="/media/{{post.featureImage}}" alt="">
-            </div>-->
+            </div>
 
             <article class="blog-post">
                 <p>{{post.content|safe}}</p>
