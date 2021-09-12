@@ -131,11 +131,11 @@ def handleSignup(request):
             return redirect(request.META.get('HTTP_REFERER', 'home'))
 
         # Create the User
-        myuser = User.objects.create_user(username, email, pass1)
-        myuser.first_name = name
-        myuser.last_name = ''
-        myuser.orgName = orgName
-        myuser.save()
+        user = User.objects.create_user(username, email, pass1)
+        user.first_name = name
+        user.last_name = ''
+        user.orgName = orgName
+        user.save()
 
         send_mail("Someone Signed Up on harmonycreativestudio.in", f"Name: {name}\nusername: {username}\nPhone No.: {phone}\nEmailID: {email}\nOrganisation: {orgName}", 'hcstudio14@gmail.com', ['info@harmonycreativestudio.in'], fail_silently=False)
 
@@ -187,7 +187,7 @@ def updateAccount(request):
         if not usernameUpdate.isalnum():
             messages.error(request, 'Username should only contain letters and numbers.')
             isError = True
-        if User.objects.filter(username=usernameUpdate).exists():
+        if User.objects.filter(username=usernameUpdate).exists() and len(User.objects.filter(username=usernameUpdate))>1:
             messages.error(request, 'The username is already taken by someone else! Please try another one.')
             isError = True
 
