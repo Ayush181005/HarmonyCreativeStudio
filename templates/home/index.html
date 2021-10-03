@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load mathfilters %}
 
 {% block metaDesc %}Hello, World{% endblock metaDesc %}
 
@@ -293,7 +292,7 @@
             </div>
         </div>
     </section>
-{% comment %}
+
     <div class="row my-3 p-3" style="justify-content:center;">
         <h2 style="font-family: 'Fredericka the Great', cursive;">Our Clients</h2>
             <div class="container mt-4">
@@ -311,7 +310,7 @@
             </div>
         </div>
     </div>
-{% endcomment %}
+
     <section id="contact"><br>
         <div class="m-4 p-4">
             <h1 class="mt-3" style="font-family: 'Fredericka the Great', cursive;">Get in Touch</h1>
@@ -512,18 +511,18 @@
                 disableOnInteraction: false,
             },
         });
-{% comment %} 
+
         {% for client in allClients %}
-            document.getElementsByClassName('clientImg')[{{forloop.counter|sub:1}}].onmouseover = function(){
-                document.getElementsByClassName('clientName')[{{forloop.counter|sub:1}}].classList.add('clientImgHovered');
-                document.getElementsByClassName('clientName')[{{forloop.counter|sub:1}}].innerText = '{{client.name}}';
+            document.getElementsByClassName('clientImg')[{{forloop.counter|add:"-1"}}].onmouseover = function(){
+                document.getElementsByClassName('clientName')[{{forloop.counter|add:"-1"}}].classList.add('clientImgHovered');
+                document.getElementsByClassName('clientName')[{{forloop.counter|add:"-1"}}].innerText = '{{client.name}}';
             }
-            document.getElementsByClassName('clientImg')[{{forloop.counter|sub:1}}].onmouseout = function(){
-                document.getElementsByClassName('clientName')[{{forloop.counter|sub:1}}].classList.remove('clientImgHovered');
-                document.getElementsByClassName('clientName')[{{forloop.counter|sub:1}}].innerText = '';
+            document.getElementsByClassName('clientImg')[{{forloop.counter|add:"-1"}}].onmouseout = function(){
+                document.getElementsByClassName('clientName')[{{forloop.counter|add:"-1"}}].classList.remove('clientImgHovered');
+                document.getElementsByClassName('clientName')[{{forloop.counter|add:"-1"}}].innerText = '';
             }
         {% endfor %}
-{% endcomment %}
+
         document.getElementById('arrows').onclick = function(){
             document.getElementById('aboutstudio').scrollIntoView();
         };

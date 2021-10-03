@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'blog.apps.BlogConfig',
     'django.contrib.humanize',
-    'mathfilters',
     'django_cleanup.apps.CleanupConfig',
     'django.contrib.sitemaps',
 ]
