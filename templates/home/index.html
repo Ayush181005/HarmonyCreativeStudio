@@ -292,7 +292,7 @@
             </div>
         </div>
     </section>
-
+{% comment %}
     <div class="row my-3 p-3" style="justify-content:center;">
         <h2 style="font-family: 'Fredericka the Great', cursive;">Our Clients</h2>
             <div class="container mt-4">
@@ -310,7 +310,7 @@
             </div>
         </div>
     </div>
-
+{% endcomment %}
     <section id="contact"><br>
         <div class="m-4 p-4">
             <h1 class="mt-3" style="font-family: 'Fredericka the Great', cursive;">Get in Touch</h1>
@@ -414,7 +414,6 @@
         }
 
         AOS.init();
-
         $('.customer-logos').slick({
             slidesToShow: 5,
             slidesToScroll: 1,
@@ -440,7 +439,6 @@
                 }
             }]
         });
-
         function Utils(){}
         Utils.prototype = {
             constructor: Utils,
@@ -511,7 +509,7 @@
                 disableOnInteraction: false,
             },
         });
-
+{% comment %}
         {% for client in allClients %}
             document.getElementsByClassName('clientImg')[{{forloop.counter|add:"-1"}}].onmouseover = function(){
                 document.getElementsByClassName('clientName')[{{forloop.counter|add:"-1"}}].classList.add('clientImgHovered');
@@ -522,7 +520,7 @@
                 document.getElementsByClassName('clientName')[{{forloop.counter|add:"-1"}}].innerText = '';
             }
         {% endfor %}
-
+{% endcomment %}
         document.getElementById('arrows').onclick = function(){
             document.getElementById('aboutstudio').scrollIntoView();
         };
