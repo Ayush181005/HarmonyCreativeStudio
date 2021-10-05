@@ -51,6 +51,7 @@ def blogPost(request, slug):
     post = Post.objects.filter(slug=slug).first()
     post.save()
 
+    # Comments and Replies Logic
     comments = BlogComment.objects.filter(post=post, parent=None)
     replies = BlogComment.objects.filter(post=post).exclude(parent=None)
     repDict = {}
@@ -80,8 +81,8 @@ def blogPost(request, slug):
     post.views = len(uniqueVisitors.split())
     post.save()
 
-    context = {'post': post, 'comments': comments, 'user': request.user, 'replyDict': repDict, 'isBlog': isBlog}
-    return render(request, 'blog/blogPost.html', context)
+    params = {'post': post, 'comments': comments, 'user': request.user, 'replyDict': repDict, 'isBlog': isBlog}
+    return render(request, 'blog/blogPost.html', params)
 
 def postComment(request):
     if request.method == "POST":
