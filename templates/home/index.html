@@ -548,6 +548,8 @@
             document.getElementById('name').value = "{{request.user.get_full_name}}";
             document.getElementById('email').value = "{{request.user.email}}";
         {% endif %}
+
+        document.getElementsByClassName("slick-track")[0].ariaLabel = "our-team"; // for 'ARIA input fields do not have accessible names' error by lighthouse
     </script>
 {% endblock js %}
 
