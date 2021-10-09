@@ -16,7 +16,7 @@
     <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">-->
     <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css'%}">
-    <link rel="stylesheet" href="{% static 'css/responsive.css'%}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css'%}" media="screen and (max-width:768px)">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Concert+One&family=Yatra+One&display=swap" rel="stylesheet">
 
@@ -377,7 +377,7 @@
     <nav class="navbar navbar-expand-lg navbar-light navShadow" id="navbar">
         <div class="container-fluid">
             <a class="navbar-brand navLogo" href="/">
-                <img width="130px" src="{% static 'images/logos/LOGO Tr.jpg' %}" id="navbarImg" class="d-inline-block align-text-top" alt="Logo">
+                <img width="130px" src="{% static 'images/logos/LOGO Tr.webp' %}" id="navbarImg" class="d-inline-block align-text-top" alt="Logo">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <div id="hamburger-icon" onclick="hamburgerClicked()">
@@ -559,10 +559,10 @@
                     Copyright &copy; HarmonyCreativeStudio |
                 </div>
                 <div class="col-md-6 text-end" id='footerIcons'>
-                    <a title="Facebook" href="https://www.facebook.com/harmonycreativestudios/" target="_blank" rel="noopener noreferrer" class="footerIconAnchors"><i class="fa fa-facebook" style="color:#4267B2;"></i> facebook</a>&nbsp;
-                    <a title="Twitter" href="https://twitter.com/HarmonyCreativ2" target="_blank" rel="noopener noreferrer" class="footerIconAnchors"><i class="fa fa-twitter" style="color:#00acee;"></i> twitter</a>&nbsp;
-                    <a title="Instagram" href="https://www.instagram.com/harmonycreativestudio/" target="_blank" rel="noopener noreferrer" class="footerIconAnchors"><i class="fa fa-instagram"></i> instagram</a>&nbsp;
-                    <a title="LinkedIn" href="https://www.linkedin.com/in/harmonycreativestudio-hcs-7669b3185" target="_blank" rel="noopener noreferrer" class="footerIconAnchors"><i class="fa fa-linkedin" style="color:#0e76a8;"></i> linkedin</a>&nbsp;
+                    <a title="Facebook" href="https://www.facebook.com/harmonycreativestudios/" target="_blank" rel="noreferrer" class="footerIconAnchors"><i class="fa fa-facebook" style="color:#4267B2;"></i> facebook</a>&nbsp;
+                    <a title="Twitter" href="https://twitter.com/HarmonyCreativ2" target="_blank" rel="noreferrer" class="footerIconAnchors"><i class="fa fa-twitter" style="color:#00acee;"></i> twitter</a>&nbsp;
+                    <a title="Instagram" href="https://www.instagram.com/harmonycreativestudio/" target="_blank" rel="noreferrer" class="footerIconAnchors"><i class="fa fa-instagram"></i> instagram</a>&nbsp;
+                    <a title="LinkedIn" href="https://www.linkedin.com/in/harmonycreativestudio-hcs-7669b3185" target="_blank" rel="noreferrer" class="footerIconAnchors"><i class="fa fa-linkedin" style="color:#0e76a8;"></i> linkedin</a>&nbsp;
                     <a title="Youtube" href="https://www.youtube.com/channel/UC15kg3t1AZUyDQ6ZjzbLNHQ?sub_confirmation=1" class="footerIconAnchors" target="_blank" rel="noopener noreferrer"><i class="fa fa-youtube-play" style="color:#FF0000;"></i> Youtube</a>
                 </div>
             </div>

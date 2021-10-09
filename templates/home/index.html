@@ -19,21 +19,36 @@
             {% comment %} animation: bgAnim 18s infinite linear; {% endcomment %}
             background-repeat: no-repeat !important;
             background-attachment: fixed !important;
-            background:  rgba(255, 255 , 255 , 0.7) url('{%static 'images/homeBg/1.jpg'%}');
+            background:  rgba(255, 255 , 255 , 0.7) url('{%static 'images/homeBg/1.webp'%}');
             height: 100vh;
             width: 100vw;
         }
         @keyframes bgAnim{
-            10%{background:  rgba(255, 255 , 255 , 0.5) url('{%static 'images/homeBg/2.jpg'%}');}
-            20%{background:  rgba(255, 255 , 255 , 0.8) url('{%static 'images/homeBg/2.jpg'%}');}
-            30%{background:  rgba(255, 255 , 255 , 0.5) url('{%static 'images/homeBg/3.jpg'%}');}
-            40%{background:  rgba(255, 255 , 255 , 0.8) url('{%static 'images/homeBg/3.jpg'%}');}
-            50%{background:  rgba(255, 255 , 255 , 0.5) url('{%static 'images/homeBg/4.jpg'%}');}
-            60%{background:  rgba(255, 255 , 255 , 0.8) url('{%static 'images/homeBg/4.jpg'%}');}
-            70%{background:  rgba(255, 255 , 255 , 0.5) url('{%static 'images/homeBg/5.jpg'%}');}
-            80%{background:  rgba(255, 255 , 255 , 0.8) url('{%static 'images/homeBg/5.jpg'%}');}
-            90%{background:  rgba(255, 255 , 255 , 0.5) url('{%static 'images/homeBg/1.jpg'%}');}
-            100%{background:  rgba(255, 255 , 255 , 0.8) url('{%static 'images/homeBg/1.jpg'%}');}
+            10%{
+                background-color: rgba(255, 255 , 255 , 0.5);
+                background-image: url('{%static 'images/homeBg/2.webp'%}');
+            }
+            20%{background-color: rgba(255, 255 , 255 , 0.8);}
+            30%{
+                background-color: rgba(255, 255 , 255 , 0.5);
+                background-image: url('{%static 'images/homeBg/3.webp'%}');
+            }
+            40%{background-color: rgba(255, 255 , 255 , 0.8);}
+            50%{
+                background-color: rgba(255, 255 , 255 , 0.5);
+                background-image: url('{%static 'images/homeBg/4.webp'%}');
+            }
+            60%{background-color: rgba(255, 255 , 255 , 0.8);}
+            70%{
+                background-color: rgba(255, 255 , 255 , 0.5);
+                background-image: url('{%static 'images/homeBg/5.webp'%}');
+            }
+            80%{background-color: rgba(255, 255 , 255 , 0.8);}
+            90%{
+                background-color: rgba(255, 255 , 255 , 0.5);
+                background-image: url('{%static 'images/homeBg/1.webp'%}');
+            }
+            100%{background-color: rgba(255, 255 , 255 , 0.8);}
         }
 
         .contactLink{
@@ -61,8 +76,7 @@
         }
 
         .testimonial-bg{
-            {% comment %} background:url('{% static 'images/TestimonialSlider/bg.jpg' %}'); {% endcomment %}
-            background:url('{% static 'images/TestimonialSlider/bg.jpg' %}');
+            background:url('{% static 'images/TestimonialSlider/bg.webp' %}');
             background-size: cover;
             height: 100%;
         }
@@ -339,7 +353,7 @@
             <div class="row" style="cursor:default;">
                 <div class="col-md-6 text-end" id="contactAddress" style='color: gray;'><small>Address</small></div>
                 <div class="col-md-6" id="contactAddressDisplay">
-                    <a href='https://goo.gl/maps/byia9HbBsJMibR4e9' target="_blank" class="contactLink" style="text-transform: none;">HarmonyCreativeStudio</a><br>x, y floor, <br>Pehel, Nr. Vaishnowdevi Circle<br>
+                    <a href='https://goo.gl/maps/byia9HbBsJMibR4e9' rel="noreferrer" target="_blank" class="contactLink" style="text-transform: none;">HarmonyCreativeStudio</a><br>x, y floor, <br>Pehel, Nr. Vaishnowdevi Circle<br>
                 </div>
             </div>
         </div>
