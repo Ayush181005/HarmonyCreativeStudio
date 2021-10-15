@@ -197,7 +197,7 @@
             height: 3px;
             width: 100%;
             background: #737373;
-            border-radius: 9px;
+            border-radius: 20px;
             opacity: 1;
             left: 0;
             -webkit-transform: rotate(0deg);
@@ -349,7 +349,10 @@
     </style>
     <script>
         function hamburgerClicked(){
-            document.getElementById('hamburger-icon').classList.toggle('open');
+            document.getElementById('hamburger-icon').style.transform = "scaleX(70%)";
+            setTimeout(()=>{
+                document.getElementById('hamburger-icon').style.transform = "scaleX(100%)";
+            }, 350);
         }
     </script>
 </head>
