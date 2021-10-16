@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 *{
     margin: 0;
     padding:0;
@@ -25,14 +24,6 @@ html{
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
-
-.secondHalf img{
-    width: 70%; 
-    border: 4px solid white;
-    border-radius: 150px;
-    display: block;
-    margin: auto;
 }
 
 .text-big{

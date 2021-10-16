@@ -22,9 +22,9 @@
     <div style="display:flex;justify-content:center;" class="m-5">
         <div class="card p-3 accountDetailsShadow">
             <h6 class="noSelect">Account Info:</h6>
-            <p class="mb-1"><span class="noSelect">Name: </span>{{ user.get_full_name }} {% if user.is_superuser %}<span class="badge rounded-pill bg-danger">Super User</span>{% endif %}</p>
-            <p class="mb-1"><span class="noSelect">Username: </span>{{ user.username }}</p>
-            <p class="mb-1"><span class="noSelect">Email: </span>{{ user.email }}</p>
+            <p class="mb-1"><span class="noSelect">Name: </span><span id="userFullName">{{ user.get_full_name }}</span>{% if user.is_superuser %}<span class="mx-1 badge rounded-pill bg-danger">Super User</span>{% endif %}</p>
+            <p class="mb-1"><span class="noSelect">Username: </span><span id="userUsername">{{ user.username }}</span></p>
+            <p class="mb-1"><span class="noSelect">Email: </span><span id="userEmail">{{ user.email }}</span></p>
             <a href="/reset-password">Change Password?</a>
             <div class="row p-2">
                 <button class="btn btn-danger btn-sm col-md-6" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" style="border-top-right-radius:0;border-bottom-right-radius:0;">Delete Account</button>
@@ -33,7 +33,7 @@
         </div>
     </div>
 
-
+    <!-- Delete Modal -->
     <div style="display:flex;justify-content:center;" class="mb-3">
         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -42,7 +42,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Please Confirm, would you really like to delete your account?
+                    Please Confirm, would you really like to delete your account?<br>
+                    We are sorry to see you go.
                 </div>
                 <a type="button" href="/delete-account" class="btn btn-danger" style="border-top-right-radius:0 !important;border-top-left-radius:0 !important;">Yes</a>
                 </div>
@@ -50,6 +51,7 @@
         </div>
     </div>
 
+    <!-- Update Modal -->
     <div style="display:flex;justify-content:center;" class="mb-3">
         <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -83,33 +85,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="container mb-5" style="display:block;">
-        <div class="collapse row" id="updateCollapse">
-            <form action="/update-account/" method="post">
-                {% csrf_token %}
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="nameUpdate" name="nameUpdate" required>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" autofill="off" id="usernameUpdate" name="usernameUpdate" required>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="email" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="emailUpdate" name="emailUpdate" required>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-outline-warning btn-sm">Update Account</button>
-            </form>
         </div>
     </div>
 </div>

@@ -198,6 +198,7 @@ def updateAccount(request):
             user.username = usernameUpdate
             user.email = emailUpdate
             user.save()
+            messages.info(request, "It may take several seconds to update info...<script>setTimeout(()=>{document.getElementById('nameUpdate').value = '"+user.first_name+"';document.getElementById('usernameUpdate').value = '"+user.username+"';document.getElementById('emailUpdate').value = '"+user.email+"';document.getElementById('userFullName').innerText = '"+user.first_name+"';document.getElementById('userUsername').innerText = '"+user.username+"';document.getElementById('userEmail').innerText = '"+user.email+"';}, 3000);</script>")
 
         return redirect(request.META.get('HTTP_REFERER', 'myAccount'))
 
