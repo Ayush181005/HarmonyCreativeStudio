@@ -66,6 +66,7 @@
             top:0;
             z-index:1000;
             width: 100vw;
+            transition: top .3s;
         }
         .scrollNav{
             opacity: .95;
@@ -195,7 +196,7 @@
         #hamburger-icon span {
             display: block;
             position: absolute;
-            height: 3px;
+            height: 4px;
             width: 100%;
             background: #737373;
             border-radius: 20px;
@@ -318,7 +319,7 @@
         function hamburgerClicked(){
             setTimeout(()=>{
                 document.getElementById('hamburger-icon').style.transform = "scaleX(100%)";
-            }, 100);
+            }, 130);
             document.getElementById('hamburger-icon').style.transform = "scaleX(30%)";
         }
     </script>
@@ -613,10 +614,22 @@
         mediaQuery.addListener(handleResize); // Register Event Listener
         handleResize(mediaQuery); // Initial Check
 
-        //Get the top button:
-        goToTopBtn = document.getElementById("goToTopBtn");
-        // When the user scrolls down 20px from the top of the document, show the button
+        // Get the top button:
+        let goToTopBtn = document.getElementById("goToTopBtn");
+        // When the user scrolls down, hide the navbar. When the user scrolls up, show the navbar.
+        let prevScrollpos = window.pageYOffset;
         window.onscroll = function(ev) {
+            // Get current scroll position
+            let currentScrollPos = window.pageYOffset;
+            if (prevScrollpos > currentScrollPos) {
+                // Scrolling down
+                document.getElementById("navbar").style.top = "0";
+            } else {
+                // Scrolling up
+                document.getElementById("navbar").style.top = "-100%";
+            }
+            prevScrollpos = currentScrollPos;
+            // When the user scrolls down 20px from the top of the document, show the button
             if (document.body.scrollTop > 350 || document.documentElement.scrollTop > 350) {
                 goToTopBtn.classList.add("active");
 
@@ -630,6 +643,7 @@
                 goToTopBtn.classList.remove("active");
             }
         };
+
         // When the user clicks on the button, scroll to the top of the document
         function topFunction() {
             window.scrollTo({
