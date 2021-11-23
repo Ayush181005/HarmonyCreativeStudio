@@ -172,7 +172,6 @@
 
         .formInput{
             border-radius: 25px;
-            {% comment %} border: .5px solid rgba(255, 255, 255, 0) !important; {% endcomment %}
             border: .5px solid #f8f9fa !important;
             background-color: #f8f9fa;
             box-shadow: inset 3px 2px 5px 1px #ded7d7, inset -0.5px -0.1px 5px 1px #ded7d7;
@@ -427,7 +426,9 @@
             }, 200);
         }
 
-        AOS.init();
+        AOS.init(); // For the animations on the page
+
+        // Slick Slider
         $('.customer-logos').slick({
             slidesToShow: 5,
             slidesToScroll: 1,
@@ -453,6 +454,7 @@
                 }
             }]
         });
+
         function Utils(){}
         Utils.prototype = {
             constructor: Utils,
@@ -499,6 +501,7 @@
                 document.getElementById('navContact').classList.remove('active');
             }
 
+            // removing lazy loading class after loaded in the youtube embed link
             if(document.querySelector('iframe').classList.contains('yt-lazy')){
                 if(Utils.isElementInView($('.yt-lazy'), false)){
                     document.querySelectorAll('.yt-lazy').forEach(function(elem){
@@ -509,7 +512,7 @@
             }
         });
 
-        /* Testimonial Slider */
+        // Testimonial Slider
         var swiper = new Swiper('.swiper-container', {
             effect: 'flip',
             grabCursor: true,

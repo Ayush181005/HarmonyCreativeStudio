@@ -126,10 +126,10 @@
             box-shadow: 0 2px 4px 0 rgb(0 0 0 / 15%);
             background-color: #fff;
             color: #000000;
-            -webkit-border-radius: 10px;
-            -moz-border-radius: 10px;
-            -ms-border-radius: 10px;
-            border-radius: 10px;
+            -webkit-border-radius: 20px;
+            -moz-border-radius: 20px;
+            -ms-border-radius: 20px;
+            border-radius: 20px;
             visibility: hidden;
             opacity: 0;
             -webkit-transform: translateY(30px);
@@ -314,13 +314,38 @@
                 transform: rotate(360deg) /* rtl:ignore */;
             }
         }
+
+        .hamburgerClickedClass{
+            -webkit-animation: hamburgerClickedAnim 400ms ease-in-out;
+            animation: hamburgerClickedAnim 400ms ease-in-out;
+        }
+        @keyframes hamburgerClickedAnim{
+            0%{
+                transform: scaleX(0.96);
+            }
+            20%{
+                transform: scaleX(1.1);
+            }
+            40%{
+                transform: scaleX(0.58); /* 0.98 for small spring look */
+            }
+            60%{
+                transform: scaleX(1.05);
+            }
+            80%{
+                transform: scaleX(1.01);
+            }
+            100%{
+                transform: scaleX(1);
+            }
+        }
     </style>
     <script>
         function hamburgerClicked(){
-            setTimeout(()=>{
-                document.getElementById('hamburger-icon').style.transform = "scaleX(100%)";
-            }, 130);
-            document.getElementById('hamburger-icon').style.transform = "scaleX(30%)";
+            document.getElementById('hamburger-icon').classList.add('hamburgerClickedClass');
+            setTimeout(function(){
+                document.getElementById('hamburger-icon').classList.remove('hamburgerClickedClass');
+            }, 400);
         }
     </script>
 </head>
@@ -350,7 +375,7 @@
             <a class="navbar-brand navLogo" href="/">
                 <img width="130px" src="{% static 'images/logos/LOGO Tr.webp' %}" id="navbarImg" class="d-inline-block align-text-top" alt="Logo">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="navbarToggler">
                 <div id="hamburger-icon" onclick="hamburgerClicked()">
                     <span></span>
                     <span></span>
@@ -503,7 +528,7 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="loginUsername" class="form-label">Username</label>
-                            <input type="text" class="form-control" autofill="off" id="loginUsername" name="loginUsername" placeholder="Your Username" required maxlength="10">
+                            <input type="text" class="form-control" autofill="off" id="loginUsername" name="loginUsername" placeholder="Your Username" required>
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="pass" class="form-label">Password</label>
@@ -572,7 +597,7 @@
             }
         });
 
-        // lazy image loading
+        // lazy loading images
         document.addEventListener("DOMContentLoaded", function() {
             let lazyloadImages = document.querySelectorAll(".lazy");
             let lazyloadThrottleTimeout;
@@ -602,6 +627,7 @@
             window.addEventListener("orientationChange", lazyload);
         });
 
+        // Making the pages Responsive
         const mediaQuery = window.matchMedia('(max-width:767.9px)');
         function handleResize(e){
             if(mediaQuery.matches){
@@ -622,11 +648,17 @@
             // Get current scroll position
             let currentScrollPos = window.pageYOffset;
             if (prevScrollpos > currentScrollPos) {
-                // Scrolling down
+                // Scrolling up
                 document.getElementById("navbar").style.top = "0";
             } else {
-                // Scrolling up
-                document.getElementById("navbar").style.top = "-100%";
+                // Scrolling down
+                if (mediaQuery.matches){
+                    if (document.getElementById("navbarToggler").classList.contains("collapsed")) { // If Navbar is not collapsed
+                        document.getElementById("navbar").style.top = "-100%";
+                    }
+                } else {
+                    document.getElementById("navbar").style.top = "-100%";
+                }
             }
             prevScrollpos = currentScrollPos;
             // When the user scrolls down 20px from the top of the document, show the button

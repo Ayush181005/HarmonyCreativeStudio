@@ -51,13 +51,13 @@ class Portfolio(models.Model):
 class Client(models.Model):
     logo = models.ImageField(upload_to="home/clients")
     name = models.CharField(max_length=355)
+    timeStamp = models.DateTimeField(default = now)
 
     def __str__(self):
         return self.name
 
 class TeamMember(models.Model):
     sno = models.AutoField(primary_key=True)
-    # photo = models.ImageField(upload_to="home/our_team", help_text="644x641px")
     photo = ResizedImageField(upload_to="home/our_team", help_text="644x641px", size=[644, 641], crop=['middle', 'center'], force_format='PNG')
     name = models.CharField(max_length=400)
     designation = models.CharField(max_length=400)
