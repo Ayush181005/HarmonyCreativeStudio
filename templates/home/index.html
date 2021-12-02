@@ -137,7 +137,29 @@
             transition: .5s;
         }
         .clientImg:hover{
-            transform: scale(.9);
+            {% comment %} transform: scale(.99); {% endcomment %}
+            animation: clientImgAnim 400ms linear;
+            animation-iteration-count: 1;
+        }
+        @keyframes clientImgAnim{
+            0%{
+                transform: scale(0.96);
+            }
+            20%{
+                transform: scale(1.1);
+            }
+            40%{
+                transform: scale(0.98);
+            }
+            60%{
+                transform: scale(1.05);
+            }
+            80%{
+                transform: scale(1.01);
+            }
+            100%{
+                transform: scale(1);
+            }
         }
 
         .clientImgHovered{
@@ -305,7 +327,7 @@
             </div>
         </div>
     </section>
-{% comment %}
+{% comment %} 
     <div class="row my-3 p-3" style="justify-content:center;">
         <h2 style="font-family: 'Fredericka the Great', cursive;">Our Clients</h2>
             <div class="container mt-4">
@@ -526,7 +548,7 @@
                 disableOnInteraction: false,
             },
         });
-{% comment %}
+{% comment %} 
         {% for client in allClients %}
             document.getElementsByClassName('clientImg')[{{forloop.counter|add:"-1"}}].onmouseover = function(){
                 document.getElementsByClassName('clientName')[{{forloop.counter|add:"-1"}}].classList.add('clientImgHovered');

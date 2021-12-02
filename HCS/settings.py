@@ -64,7 +64,7 @@ ROOT_URLCONF = 'HCS.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -154,9 +154,8 @@ EMAIL_HOST_PASSWORD = envread('EMAIL_HOST_PASSWORD')
 
 DJANGORESIZED_DEFAULT_FORMAT_EXTENSIONS = {'PNG': ".png"}
 
-# CSRF_COOKIE_SECURE = True
-
-# SESSION_COOKIE_STORAGE = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_STORAGE = True
 
 CACHE_MIDDLEWARE_SECONDS = 30
 CACHES = {
