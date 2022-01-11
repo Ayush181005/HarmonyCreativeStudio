@@ -5,6 +5,10 @@
 __pycache__
 db.sqlite3
 media
+migrations/
+
+# Static files #
+static/tinyInject.js
 
 # Backup files # 
 *.bak

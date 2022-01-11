@@ -58,7 +58,7 @@ class Client(models.Model):
 
 class TeamMember(models.Model):
     sno = models.AutoField(primary_key=True)
-    photo = ResizedImageField(upload_to="home/our_team", help_text="644x641px", size=[644, 641], crop=['middle', 'center'], force_format='WebP')
+    photo = ResizedImageField(upload_to="home/our_team", help_text="644x641px", size=[644, 641], crop=['middle', 'center'], force_format='WebP', quality=99)
     name = models.CharField(max_length=400)
     designation = models.CharField(max_length=400)
 

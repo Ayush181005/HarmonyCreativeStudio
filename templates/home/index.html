@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block metaDesc %}Hello, World{% endblock metaDesc %}
+{% block metaDesc %}Harmony Creative Studio is a Textile Design Company which provides you the latest textile designs for your fabrics.{% endblock metaDesc %}
 
 {% block title %}One Stop Textile Design Solution | HarmonyCreativeStudio{% endblock title %}
 
@@ -250,7 +250,7 @@
                     HarmonyCreativeStudio aims to provide well-defined, stylish and contemporary patterns and designs, to those who look for perfection in their apparels. We provide related services like textile and fashion design consultancy that encompasses manufacturing of accessories, fabric designs, yarn designs, color development, styling, presentation, cloth sampling, and production. The constant evolution in fashion and textile industry needs a lot of creativity and planning and so we work forth to inculcate our share of difference in the fashion standards.</p>
                 </div>
                 <div id="outerStudioImg" class="col-md-6 colImg" style="display:flex; flex-direction:row;justify-content:center;">
-                    <img id="innerStudioImg" class="lazy" data-aos="zoom-in-right" data-aos-once="true" data-src="{% static 'images/About Studio/1.webp' %}" alt="" style="max-width:85%;max-height:70%;min-height:300px;display:block;margin:auto;">
+                    <img id="innerStudioImg" class="lazy" data-aos="zoom-in-right" data-aos-once="true" data-src="{% static 'images/About Studio/1.webp' %}" alt="" style="max-width:85%;max-height:50%;min-height:300px;display:block;margin:auto;">
                 </div>
             </div>
             <div class="row">
@@ -302,7 +302,7 @@
                     <p>Zarna is a passionate designer with excellent communication and presentation skill.With the experience of {{experience}} years in the field of textile designing, she believes in strong work ethics and discipline along with innovative thinking.</p>
                     <p>She has worked with almost all leading export and domestic brands and has deep understanding of global market and forecasting woven fabrics for men and women for relevant markets.</p><p>Graduated from one of the India’s premier engineering college, Zarna has gained deep knowledge of fabric designing with woven technics. She had started her career as a designer at B.V.M. (Textile division of Sintex industries Ltd.),enhanced her knowledge withfusion of technical & creative designing. At Ashima Ltd., she worked for almost more than seven years, for almost all the major brands across the globe. Lastly, she was heading Design Studio at B.V.M. (Textile division of Sintex industries Ltd.). Her versatility and ability to work with people from diverse background and all level of management added flavour to her work.</p><p>She had designed successful seasonal fabric collections for Men and Women at B.V.M. and presented to various exports and domestic brands. Vision to work towards trend forecast and market requirement aspects has made her collection useful for the designers.</p><p>She believes in spreading knowledge and creating designers for tomorrow’s world. She had guided students from leading fashion and design institutes like NID, NIFT, LDCE, Vanasthali institute, UID etc.</p>
                 </div>
-                <div class="col-md-5" style="display:flex; flex-direction:column; padding: 20px">
+                <div class="col-md-5" style="display:flex; flex-direction:column; padding: 20px; justify-content:center;">
                     {# <img src="{% static 'images/About Me/1.jpg' %}" alt="" style='max-width:300px; border:10px solid white;'> #}
                     <img data-aos="zoom-in-left" class="lazy" data-aos-once="true" data-src="{% static 'images/About Me/2.jpg' %}" alt="" style='max-height:350px;border:10px solid white;max-width: 683.33px;border-radius:15px;'>
                 </div>
@@ -349,16 +349,7 @@
     <section id="contact"><br>
         <div class="m-4 p-4">
             <h1 class="mt-3" style="font-family: 'Fredericka the Great', cursive;">Get in Touch</h1>
-            {% if messageForContact %}
-                {% for message in messages %}
-                    <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert" style="font-family: 'Yatra One', cursive;">
-                        MESSAGE: {{message|safe}}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                {% endfor %}
-            {% endif %}
             <div class="mr-5 px-4"><hr class='mr-5'></div>
-
             <div class="row" style="cursor:default;">
                 <div class="col-md-6 text-end" id="contactPhone" style='color: gray;'><small>Phone</small></div>
                 <div class="col-md-6" id="contactPhoneDisplay">

@@ -447,18 +447,16 @@
         </div>
     </nav>
 
-    {% if not messageForContact %}
-        <div class="toast-container position-absolute bottom-0 start-0 p-3" style="z-index: 11">
-            {% for message in messages %}
-                <div class="toast alert fade show align-items-center border-2 border-{{message.tags}}" role="alert" aria-live="assertive" aria-atomic="true" style="padding:0;width:100%;max-width:40vw;min-width:270px;">
-                    <div class="d-flex">
-                        <strong class="toast-body">{{message|safe}}</strong>
-                        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
+    <div class="toast-container position-{% if messageForContact %}fixed{% else %}absolute{% endif %} bottom-0 start-0 p-3" style="z-index: 11">
+        {% for message in messages %}
+            <div class="toast alert fade show align-items-center border-2 border-{{message.tags}}" role="alert" aria-live="assertive" aria-atomic="true" style="padding:0;width:100%;max-width:40vw;min-width:270px;">
+                <div class="d-flex">
+                    <strong class="toast-body">{% if messageForContact %}<span class="text-{{message.tags}}">Contact Us Message: </span>{% endif %}{{message|safe}}</strong>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-            {% endfor %}
-        </div>
-    {% endif %}
+            </div>
+        {% endfor %}
+    </div>
 
     <!-- SignUp Modal -->
     <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModal" aria-hidden="true">
