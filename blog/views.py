@@ -4,7 +4,7 @@ from django.contrib import messages
 from math import ceil
 # from time import time
 
-def blogHome(request):
+def blogTemplate(request, status):
     posts_per_page = 5
     page = request.GET.get('page')
     if page is None:
@@ -14,7 +14,19 @@ def blogHome(request):
 
     allPosts = Post.objects.all()
     length = len(allPosts)
-    allPosts = Post.objects.order_by('-timeStamp')
+
+    if status == 'newestFirst':
+        allPosts = Post.objects.order_by('-timeStamp')
+        newest = True
+        popular = False
+    elif status == 'oldestFirst':
+        allPosts = Post.objects.order_by('timeStamp')
+        newest = False
+        popular = False
+    elif status == 'popularFirst':
+        allPosts = Post.objects.order_by('-views')
+        popular = True
+        newest = False
     allPosts =allPosts[(page-1)*posts_per_page: page*posts_per_page]
 
     if page>1:
@@ -28,7 +40,7 @@ def blogHome(request):
         nextPage = None
 
     isBlog = True
-    newest = True
+
     if(length>0):
         footerInAir = False
     else:
@@ -42,7 +54,18 @@ def blogHome(request):
         for keyword in keywords.split(", "):
             possibleQueries.append(keyword)
 
-    context = {'allPosts': allPosts, 'prev': previousPage, 'nxt': nextPage, 'status': 'newestFirst', 'isBlog': isBlog, 'newest': newest, 'footerInAir': footerInAir, 'possibleQueries': possibleQueries}
+    return {'allPosts': allPosts, 'prev': previousPage, 'nxt': nextPage, 'status': status, 'isBlog': isBlog, 'newest': newest, 'footerInAir': footerInAir, 'possibleQueries': possibleQueries, 'popular': popular}
+
+def blogHome(request):
+    context = blogTemplate(request, 'newestFirst')
+    return render(request, 'blog/index.html', context)
+
+def oldestFirst(request):
+    context = blogTemplate(request, 'oldestFirst')
+    return render(request, 'blog/index.html', context)
+
+def mostPopular(request):
+    context = blogTemplate(request, 'popularFirst')
     return render(request, 'blog/index.html', context)
 
 def blogPost(request, slug):
@@ -102,91 +125,7 @@ def postComment(request):
         
     return redirect(f"/blog/{post.slug}")
 
-def oldestFirst(request):
-    posts_per_page = 5
-    page = request.GET.get('page')
-    if page is None:
-        page = 1
-    else:
-        page = int(page)
-    
-    allPosts = Post.objects.all()
-    length = len(allPosts)
-    allPosts = Post.objects.order_by('timeStamp')
-    allPosts = allPosts[(page-1)*posts_per_page: page*posts_per_page]
-
-    if page>1:
-        previousPage = page-1
-    else:
-        previousPage = None
-
-    if page<ceil(length/posts_per_page):
-        nextPage = page+1
-    else:
-        nextPage = None
-
-    isBlog = True
-    newest = False
-    if(length>0):
-        footerInAir = False
-    else:
-        footerInAir = True
-
-    allPossiblePosts = Post.objects.all()
-    possibleQueries = []
-    for possiblePost in allPossiblePosts:
-        possibleQueries.append(possiblePost.title)
-        keywords = possiblePost.keywords
-        for keyword in keywords.split(", "):
-            possibleQueries.append(keyword)
-
-    context = {'allPosts': allPosts, 'status': 'oldestFirst', 'prev': previousPage, 'nxt': nextPage, 'isBlog': isBlog, 'newest': newest, 'footerInAir': footerInAir, 'possibleQueries': possibleQueries}
-    return render(request, 'blog/index.html', context)
-
-def mostPopular(request):
-    posts_per_page = 5
-    page = request.GET.get('page')
-    if page is None:
-        page = 1
-    else:
-        page = int(page)
-    
-    allPosts = Post.objects.all()
-    length = len(allPosts)
-    allPosts = Post.objects.order_by('-views')
-    allPosts = allPosts[(page-1)*posts_per_page: page*posts_per_page]
-
-    if page>1:
-        previousPage = page-1
-    else:
-        previousPage = None
-
-    if page<ceil(length/posts_per_page):
-        nextPage = page+1
-    else:
-        nextPage = None
-
-    isBlog = True
-    popular = True
-    if(length>0):
-        footerInAir = False
-    else:
-        footerInAir = True
-
-    allPossiblePosts = Post.objects.all()
-    possibleQueries = []
-    for possiblePost in allPossiblePosts:
-        possibleQueries.append(possiblePost.title)
-        keywords = possiblePost.keywords
-        for keyword in keywords.split(", "):
-            possibleQueries.append(keyword)
-
-    context = {'allPosts': allPosts, 'status': 'popularFirst', 'prev': previousPage, 'nxt': nextPage, 'isBlog': isBlog, 'popular': popular, 'footerInAir': footerInAir, 'possibleQueries': possibleQueries}
-    return render(request, 'blog/index.html', context)
-
 def search(request):
-    # startTime = time()
-
     if(len(Post.objects.all()) == 0):
         return redirect('/blog/')
 
@@ -201,9 +140,6 @@ def search(request):
         allPosts = (allPostsTitle.union(allPostKeyword)).union(allPostsContent)
         allPosts = allPosts.order_by('-timeStamp')
 
-    # endTime = time()
-    # executionTime = endTime - startTime
-    # queries = allPosts.length()
     isBlog = True
 
     allPossiblePosts = Post.objects.all()

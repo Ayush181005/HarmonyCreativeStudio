@@ -5,7 +5,7 @@ from blog.models import Post
 class StaticViewSitemap(Sitemap):
     def items(self):
         return ['blogHome']
-    
+
     def location(self, item):
         return reverse(item)
 
