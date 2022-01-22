@@ -398,7 +398,7 @@
 
                 <div class="row">
                     <div class="col-md-12 text-center mt-3">
-                        <button class="myBtn" type="submit">SEND MESSAGE</button>
+                        <button data-sitekey="{{recaptchaSiteKey}}" class="g-recaptcha myBtn" data-callback='onSubmit' type="submit">SEND MESSAGE</button>
                     </div>
                 </div>
             </form>
@@ -407,6 +407,7 @@
 {% endblock body %}
 
 {% block js %}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="{% static 'js/third_party/swiper-bundle.min.js' %}"></script> <!--https://unpkg.com/swiper/swiper-bundle.min.js-->
     <script src="{% static 'js/third_party/slick.js' %}"></script> <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>-->
     <script src="{% static 'js/third_party/typed.min.js' %}" async defer></script> <!--https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.9/typed.min.js-->
@@ -568,6 +569,11 @@
         {% endif %}
 
         document.getElementsByClassName("slick-track")[0].ariaLabel = "our-team"; // for 'ARIA input fields do not have accessible names' error by lighthouse
+
+        // Google Recaptcha: Submit Form
+        function onSubmit(token) {
+            document.getElementById("contactForm").submit();
+        }
     </script>
 {% endblock js %}
 

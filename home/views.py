@@ -5,8 +5,10 @@ from blog.models import Post
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from math import ceil
 from django.core.mail import send_mail
+from decouple import config as envread
+import json
+import requests
 # import smtplib
 
 def home(request):
@@ -51,25 +53,42 @@ def home(request):
 
     messageForContact = False
 
+    # giving recaptcha site key to template when GET request
+    RECAPTCHA_SITE_KEY = envread('RECAPTCHA_SITE_KEY')
+    params.update({'recaptchaSiteKey': RECAPTCHA_SITE_KEY})
+
     if request.method == 'POST':
         name = request.POST['name']
         email = request.POST['email']
         subject = request.POST['subject']
         content = request.POST['content']
+
+        # Google Recaptcha
+        siteKey = request.POST['g-recaptcha-response']
+        secretKey = envread('RECAPTCHA_SECRET_KEY')
+        recaptchaData = {
+            'secret': secretKey,
+            'response': siteKey
+        }
+        r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=recaptchaData) # sending POST request to google recaptcha server
+        response = json.loads(r.text)
+        verify = response["success"]
+
         if len(name)<2 or len(content)<4:
             messages.error(request, 'The length of name must be 2 characters or content must have atleast 4 characters!')
+            isError = True
+        elif not verify:
+            messages.error(request, 'Please verify that you are not a robot!')
             isError = True
         else:
             contact = Contact(name=name, email=email, subject=subject, content=content)
             contact.save()
-
             send_mail("Contact Recieved", f"There is a message from {contact.name} through the Contact Us form on harmonycreativestudio.in.\nMailID of Contact: {contact.email}\nSubject: {contact.subject}\nMessage: {contact.content}", 'hcstudio14@gmail.com', ['info@harmonycreativestudio.in'], fail_silently=False)
 
             messages.success(request, 'Your message has been sent! We will get back to you shortly!')
             isError = False
         messageForContact = True
-        params2 = {'messageForContact': messageForContact}
-        params.update(params2)
+        params.update({'messageForContact': messageForContact})
         if isError:
             params.update({'isError': isError, 'errName':name, 'errEmail':email, 'errSubject':subject, 'errContent':content})
     return render(request, 'home/index.html', params)
