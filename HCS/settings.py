@@ -73,6 +73,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+
         },
     },
 ]
@@ -138,7 +139,6 @@ MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MESSAGE_TAGS = {
@@ -154,10 +154,6 @@ EMAIL_HOST_PASSWORD = envread('EMAIL_HOST_PASSWORD')
 
 DJANGORESIZED_DEFAULT_FORMAT_EXTENSIONS = {'PNG': ".png", 'WebP': '.webp', 'JPG': '.jpg', 'JPEG': '.jpeg'}
 
-# HTTPS Settings
-SESSION_COOKIE_STORAGE = True
-CSRF_COOKIE_SECURE = True
-
 CACHE_MIDDLEWARE_SECONDS = 30
 CACHES = {
     'default': {
@@ -169,3 +165,7 @@ CACHES = {
         },
     }
 }
+
+# HTTPS Settings:-
+# CSRF_COOKIE_SECURE = True
+# SESSION_COKKIE_SECURE = True

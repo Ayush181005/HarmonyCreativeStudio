@@ -1,9 +1,7 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, redirect
 from .models import Post, BlogComment
 from django.contrib import messages
-from blog.templatetags import extras
 from math import ceil
-from django.db.models import Q
 # from time import time
 
 def blogHome(request):
