@@ -60,7 +60,7 @@
         <div class="col-md-12 bg-light rounded">
             <h1 class="fst-italic">{{post.title}}</h1>
             <p class="blog-post-meta mb-4">
-                {{post.pub_date}}{{post.timeStamp}}, by <b>{% if post.authorLink %}<a href="{{post.authorLink}}">{% endif %}{{post.author}}{% if post.authorLink %}</a>{% endif %}</b> | {{post.views}} {% if post.views <= 1 %}view{% else %}views{% endif %}
+                {{post.pub_date}}{{post.timeStamp}}, by <b>{% if post.authorLink %}<a href="{{post.authorLink}}">{{post.author}}</a>{% else %}{{post.author}}{% endif %}</b> | {{post.views}} {% if post.views <= 1 %}view{% else %}views{% endif %}
             </p>
             
             <hr>
@@ -103,7 +103,7 @@
             {% for comment in comments %}
                 <div class="row my-3">
                     <div class="col-md-1">
-                        <img class="userIcon border mx-auto d-block w-100 p-2 lazy" style="border-radius:23px" data-src="/static/images/blogPost/user.png"  alt="">
+                        <img class="userIcon border mx-auto d-block w-100 p-2 lazy" style="border-radius:23px" data-src="{% if comment.user.username == "HarmonyCreativeStudio" %}{% static 'images/logos/HCS.jpg' %}{% else %}{% static 'images/blogPost/user.png' %}{% endif %}">
                     </div>
                     <div class="col-md-11">
                         <b>{{comment.user.username}}</b> <span class="badge bg-secondary">{{comment.timestamp|naturaltime}}</span>
@@ -138,7 +138,7 @@
                                     {% for reply in replyDict|get_val:comment.sno %}
                                         <div class="row my-2 repDiv">
                                             <div class="col-md-1">
-                                                <img class="repLogo rounded border mx-auto d-block p-2 lazy" style="border-radius:23px" data-src="/static/images/blogPost/user.png" alt="" width="50px">
+                                                <img class="repLogo rounded border mx-auto d-block p-2 lazy" style="border-radius:23px" data-src="{% static 'images/logos/HCS.jpg' %}" width="50px">
                                             </div>
                                             <div class="col-md-11">
                                                 <b><!--{{reply.user.username}}-->HarmonyCreativeStudio</b> <span class="badge bg-secondary">{{reply.timestamp|naturaltime}}</span>
