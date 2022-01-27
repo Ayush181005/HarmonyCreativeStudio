@@ -21,7 +21,7 @@ class Post(models.Model):
         return self.title + ', by ' + self.author
 
     def get_absolute_url(self):
-        return f'/blog/{self.slug}'
+        return f'/blog/post/{self.slug}'
 
 class BlogComment(models.Model):
     sno = models.AutoField(primary_key=True)

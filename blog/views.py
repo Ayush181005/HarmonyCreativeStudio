@@ -123,7 +123,7 @@ def postComment(request):
             comment.save()
             messages.success(request, "Your reply has been posted successfully")
         
-    return redirect(f"/blog/{post.slug}")
+    return redirect(f"/blog/post/{post.slug}")
 
 def search(request):
     if(len(Post.objects.all()) == 0):

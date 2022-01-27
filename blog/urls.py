@@ -8,5 +8,5 @@ urlpatterns = [
     path('search/', views.search, name='search'),
 
     path('', views.blogHome, name='blogHome'),
-    path('<str:slug>', views.blogPost, name="blogPost"),
+    path('post/<str:slug>', views.blogPost, name="blogPost"),
 ]
