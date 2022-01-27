@@ -4,10 +4,6 @@
 
 {% block css %}
 <style>
-    body{
-        text-align: center;
-    }
-
     textarea:focus, input:focus{
         outline:none;
     }
@@ -15,11 +11,13 @@
 {% endblock css %}
 
 {% block body %}
-    <form method="post" action="/broadcast/" style="display:inline-block;">
-        {% csrf_token %}
-        <textarea id="msg" name="msg" style="border-radius:10px;resize:none;padding:10px;height:33.5vh;width:60vw;" class="mt-5"></textarea><br>
-        <label for="activeDays">Active Days</label>
-        <input type="number" name="activeDays" id="activeDays" style="border-radius:10px;padding:5px;"><br>
-        <button type="submit" class="btn btn-outline-secondary btn-sm mt-2">Broadcast Message</button>
-    </form>
+    <div class="container">
+        <form method="post" action="/broadcast/" style="display:inline-block;">
+            {% csrf_token %}
+            <textarea placeholder="Message" id="msg" name="msg" style="border-radius:10px;resize:none;padding:10px;height:33.5vh;width:60vw;" class="mt-5" required></textarea><br>
+            <label for="activeDays">Active Days</label>
+            <input type="number" min="1" name="activeDays" id="activeDays" style="border-radius:10px;padding:5px;" required><br>
+            <button type="submit" class="btn btn-outline-secondary btn-sm mt-2">Broadcast Message</button>
+        </form>
+    </div>
 {% endblock body %}

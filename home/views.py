@@ -9,12 +9,8 @@ from django.core.mail import send_mail
 from decouple import config as envread
 import json
 import requests
-# import smtplib
 
 def home(request):
-    # GMAIL_ID = ''
-    # GMAIL_PSWD = ''
-
     current_date = date.today()
     current_year = current_date.year
     experience = current_year - 2002
@@ -34,7 +30,7 @@ def home(request):
             isPost = True
     
     if(isPost):
-        messages.info(request, 'There is a <a class="text-dark" href="/blog/'+post.slug+'">Post</a> uploaded by HarmonyCreativeStudio in last 2 days, to view that go to the <a class="text-dark" href="/blog">Blog Page</a>!')
+        messages.info(request, 'There is a <a class="text-dark" href="/blog/post/'+post.slug+'">Post</a> uploaded by HarmonyCreativeStudio in last 2 days, to view that go to the <a class="text-dark" href="/blog">Blog Page</a>!')
 
     allTestimonials = Testimonial.objects.all()
     allClients = Client.objects.all()

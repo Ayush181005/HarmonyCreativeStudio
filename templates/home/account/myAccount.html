@@ -65,19 +65,19 @@
                             <div class="row">
                                 <div class="col-md-12 mb-3">
                                     <label for="name" class="form-label">Name</label>
-                                    <input type="text" class="form-control" id="nameUpdate" name="nameUpdate" required>
+                                    <input type="text" class="form-control" id="nameUpdate" name="nameUpdate" value="{{request.user.get_full_name}}" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12 mb-3">
                                     <label for="username" class="form-label">Username</label>
-                                    <input type="text" class="form-control" autofill="off" id="usernameUpdate" name="usernameUpdate" required>
+                                    <input type="text" class="form-control" autofill="off" id="usernameUpdate" name="usernameUpdate" value="{{user.username}}" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12 mb-3">
                                     <label for="email" class="form-label">Email address</label>
-                                    <input type="email" class="form-control" id="emailUpdate" name="emailUpdate" required>
+                                    <input type="email" class="form-control" id="emailUpdate" name="emailUpdate" value="{{request.user.email}}" required>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-outline-warning btn-sm">Update Account</button>
@@ -89,11 +89,3 @@
     </div>
 </div>
 {% endblock body %}
-
-{% block js %}
-<script>
-    document.getElementById('nameUpdate').value = "{{request.user.get_full_name}}";
-    document.getElementById('usernameUpdate').value = "{{user.username}}";
-    document.getElementById('emailUpdate').value = "{{request.user.email}}";
-</script>
-{% endblock js %}
