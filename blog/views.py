@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from .models import Post, BlogComment
 from django.contrib import messages
 from math import ceil
-# from time import time
 
 def blogTemplate(request, status):
     posts_per_page = 5

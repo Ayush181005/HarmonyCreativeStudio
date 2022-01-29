@@ -119,9 +119,6 @@ def dispPortfolio(request, slug):
     return render(request, 'home/dispPortfolio.html', params)
 
 def handleSignup(request):
-    # GMAIL_ID = ''
-    # GMAIL_PSWD = ''
-
     if request.method == 'POST':
         name = request.POST['name']
         username = request.POST['username']
