@@ -139,7 +139,6 @@
             transition: .5s;
         }
         .clientImg:hover{
-            {% comment %} transform: scale(.99); {% endcomment %}
             animation: clientImgAnim 400ms linear;
             animation-iteration-count: 1;
         }
@@ -163,8 +162,11 @@
                 transform: scale(1);
             }
         }
-
-        .clientImgHovered{
+        .clientName{
+            visibility: hidden;
+        }
+        .clientImg:hover > .clientName{
+            visibility: visible;
             background-color:rgba(13, 21, 68, .9);
             border-radius:20px;
             color:white;
@@ -322,7 +324,7 @@
             </div>
         </div>
     </section>
-{% comment %} 
+{% comment %}
     <div class="row my-3 p-3" style="justify-content:center;">
         <h2 style="font-family: 'Fredericka the Great', cursive;">Our Clients</h2>
             <div class="container mt-4">
@@ -331,7 +333,7 @@
                         <div class="slide">
                             <div class="ml-3" style="display:flex;flex-direction:column;">
                                 <div class="clientImg" style="background:url('/media/{{client.logo}}');height:100px;background-size:contain;width:auto;background-repeat: no-repeat;background-position: center;">
-                                    <h5 class="text-center clientName"></h5>
+                                    <h5 class="text-center clientName">{{client.name}}</h5>
                                 </div>
                             </div>
                         </div>
@@ -534,18 +536,7 @@
                 disableOnInteraction: false,
             },
         });
-{% comment %} 
-        {% for client in allClients %}
-            document.getElementsByClassName('clientImg')[{{forloop.counter|add:"-1"}}].onmouseover = function(){
-                document.getElementsByClassName('clientName')[{{forloop.counter|add:"-1"}}].classList.add('clientImgHovered');
-                document.getElementsByClassName('clientName')[{{forloop.counter|add:"-1"}}].innerText = '{{client.name}}';
-            }
-            document.getElementsByClassName('clientImg')[{{forloop.counter|add:"-1"}}].onmouseout = function(){
-                document.getElementsByClassName('clientName')[{{forloop.counter|add:"-1"}}].classList.remove('clientImgHovered');
-                document.getElementsByClassName('clientName')[{{forloop.counter|add:"-1"}}].innerText = '';
-            }
-        {% endfor %}
-{% endcomment %}
+
         {% if isError %}
             document.getElementById('name').value = "{{errName}}";
             document.getElementById('email').value = "{{errEmail}}";
