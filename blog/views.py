@@ -93,11 +93,9 @@ def blogPost(request, slug):
         return ip
     ip = getIP(request)
     uniqueVisitors = post.uniqueVisitorIPs
-    if(ip in uniqueVisitors):
-        pass
-    else:
-        post.uniqueVisitorIPs = uniqueVisitors + " " + ip
-        post.save()
+    if(not ip in uniqueVisitors):
+        uniqueVisitors = uniqueVisitors + " " + ip
+        post.uniqueVisitorIPs = uniqueVisitors
     post.views = len(uniqueVisitors.split())
     post.save()
 
