@@ -391,9 +391,15 @@
                     </div>
                 </div>
 
+                <div class="row" style="justify-content:center;">
+                    <div class="col-md-3">
+                        <div class="g-recaptcha" data-sitekey="{{recaptchaSiteKey}}" ></div>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-md-12 text-center mt-3">
-                        <button type="submit" data-sitekey="{{recaptchaSiteKey}}" class="g-recaptcha myBtn" data-callback='onSubmit'>SEND MESSAGE</button>
+                        <button type="submit" class="myBtn">SEND MESSAGE</button>
                     </div>
                 </div>
             </form>
@@ -548,11 +554,6 @@
         {% endif %}
 
         document.getElementsByClassName("slick-track")[0].ariaLabel = "our-team"; // for 'ARIA input fields do not have accessible names' error by lighthouse
-
-        // Google Recaptcha: Submit Form
-        function onSubmit(token) {
-            document.getElementById("contactForm").submit();
-        }
     </script>
 {% endblock js %}
 
