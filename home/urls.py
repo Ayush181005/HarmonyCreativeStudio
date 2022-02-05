@@ -13,8 +13,6 @@ urlpatterns = [
     path('delete-account/', views.deleteAccount, name='deleteAccount'),
     path('update-account/', views.updateAccount, name='updateAccount'),
 
-    path('broadcast/', views.broadCastMsg, name='broadCastMsg'),
-
     path('reset-password/', auth_views.PasswordResetView.as_view(template_name='home/account/reset_password.html'), name='reset_password'),
     path('reset-password_sent/', auth_views.PasswordResetDoneView.as_view(template_name='home/account/reset_password_sent.html'), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='home/account/reset_password_form.html'), name='password_reset_confirm'),

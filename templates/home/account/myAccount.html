@@ -37,10 +37,9 @@
     <div style="display:flex;justify-content:center;" class="mb-3">
         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content" style="border-radius:0.4rem;">
                     <div class="modal-body">
-                        Please Confirm, would you really like to delete your account?<br>
-                        We are sorry to see you go.
+                        <b>Please Confirm, would you really like to delete your account?</b>
                     </div>
                     <a type="button" href="/delete-account" class="btn btn-red" style="border-top-right-radius:0 !important;border-top-left-radius:0 !important;">Yes</a>
                 </div>
@@ -51,7 +50,7 @@
     <!-- Update Modal -->
     <div style="display:flex;justify-content:center;" class="mb-3">
         <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-body">
                         <form action="/update-account/" method="post">

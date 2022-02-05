@@ -417,29 +417,23 @@
                                 <a class="nav-link" id="navContact" href="/#contact">Contact Us</a>
                             </li>
                             {% if user.is_authenticated %}
-                                <li>
-                                    <div class="mx-4">
-                                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                            <li class="nav-item dropdown">
-                                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    Hi {{request.user}} <i class="fa fa-user mx-2"></i>
-                                                </a>
-                                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                    <li><a class="dropdown-item" href="/my-account/">My Account</a></li>
-                                                    {% if user.is_superuser %}
-                                                        <li><a class="dropdown-item" target="_blank" href="/hcs-admin">Admin</a></li>
-                                                        <li><a class="dropdown-item" href="/broadcast">Broadcast</a></li>
-                                                    {% endif %}
-                                                    <li><a class="dropdown-item" href="/logout/">Logout</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                <li class="nav-item dropdown ms-4">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Hi {{request.user}} <i class="fa fa-user mx-2"></i>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="/my-account/">My Account</a></li>
+                                        {% if user.is_superuser %}
+                                            <li><a class="dropdown-item" target="_blank" href="/hcs-admin">Admin</a></li>
+                                            <li><a class="dropdown-item" href="/broadcast">Broadcast</a></li>
+                                        {% endif %}
+                                        <li><a class="dropdown-item" href="/logout/">Logout</a></li>
+                                    </ul>
                                 </li>
                             {% endif %}
                             {% if not user.is_authenticated and isBlog %}
                                 <li class="nav-item">
-                                    <button type="button" class="btn text-blue" data-bs-toggle="modal" data-bs-target="#loginModal">SignIn</button>
+                                    <button type="button" class="btn text-blue" data-bs-toggle="modal" data-bs-target="#loginModal">Sign In</button>
                                 </li>
                             {% endif %}
                         </ul>
@@ -644,9 +638,13 @@
         const mediaQuery = window.matchMedia('(max-width:767.9px)');
         function handleResize(e){
             if(mediaQuery.matches){
+                document.getElementById('footerIcons').classList.remove('text-end');
+                document.getElementById('footerIcons').classList.add('text-center');
                 {% block mediaJS %}{% endblock mediaJS %}
             }
             else{
+                document.getElementById('footerIcons').classList.add('text-end');
+                document.getElementById('footerIcons').classList.remove('text-center');
                 {% block mediaJSElse %}{% endblock mediaJSElse %}
             }
         }

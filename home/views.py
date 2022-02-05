@@ -184,6 +184,7 @@ def handleLogout(request):
 
 def deleteAccount(request):
     request.user.delete()
+    messages.success(request, 'Your account has been deleted successfully. We are sad to see you go!')
     return redirect(request.META.get('HTTP_REFERER', 'home'))
 
 def updateAccount(request):
@@ -228,14 +229,3 @@ def internal_server_error_view(request):
 
 def unauthorized_view(request):
     return render(request, 'home/custom_errors/unauthorized.html')
-
-def broadCastMsg(request):
-    if request.user.is_superuser:
-        if request.method=='POST':
-            msg = request.POST['msg']
-            activeDays = request.POST['activeDays']
-            broadCastMessage = broadcasted_message(msg=msg, activeDays=activeDays)
-            broadCastMessage.save()
-        return render(request, 'home/broadCastMsg.html', {'footerInAir':True})
-    else:
-        return HttpResponse("Access Denied", status=401)

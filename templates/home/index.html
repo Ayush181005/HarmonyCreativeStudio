@@ -274,7 +274,7 @@
                         <section class="customer-logos slider teamSlider">
                             {% for teamMember in allTeamMembers %}
                                 <div class="slide teamMemberCard">
-                                    <div class="ml-3">
+                                    <div class="ms-3">
                                         <img class="teamImg lazy" data-src="/media/{{teamMember.photo}}" style="border-radius:10px;" alt="{{teamMember.name}} Image">
                                         <div class="card-body">
                                             <h5 class="card-title text-center">{{teamMember.name}}</h5>
@@ -331,7 +331,7 @@
                 <section class="customer-logos slider teamSlider">
                     {% for client in allClients %}
                         <div class="slide">
-                            <div class="ml-3" style="display:flex;flex-direction:column;">
+                            <div class="ms-3" style="display:flex;flex-direction:column;">
                                 <div class="clientImg" style="background:url('/media/{{client.logo}}');height:100px;background-size:contain;width:auto;background-repeat: no-repeat;background-position: center;">
                                     <h5 class="text-center clientName">{{client.name}}</h5>
                                 </div>
@@ -557,8 +557,6 @@
 {% endblock js %}
 
 {% block mediaJS %}
-    document.getElementById('footerIcons').classList.remove('text-end');
-    document.getElementById('footerIcons').classList.add('text-center');
     document.getElementById('contactPhone').classList.remove('text-end');
     document.getElementById('contactEmail').classList.remove('text-end');
     document.getElementById('contactAddress').classList.remove('text-end');
@@ -574,8 +572,6 @@
     document.getElementById('formEmailDiv').classList.add('text-center');
 {% endblock mediaJS %}
 {% block mediaJSElse %}
-    document.getElementById('footerIcons').classList.add('text-end');
-    document.getElementById('footerIcons').classList.remove('text-center');
     document.getElementById('contactPhone').classList.add('text-end');
     document.getElementById('contactEmail').classList.add('text-end');
     document.getElementById('contactAddress').classList.add('text-end');

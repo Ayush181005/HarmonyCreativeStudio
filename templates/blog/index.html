@@ -23,6 +23,14 @@
       right: 13%;
       height: 20%;
     }
+
+    .singlePost{
+      transition: .1s;
+    }
+    .singlePost:hover{
+      transform: scale(1.01);
+      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+    }
   </style>
 {% endblock css %}
 
@@ -70,15 +78,11 @@
 
     <div class="my-2">
       {% if prev %}
-        <a href="?page={{prev}}" role="button" class="btn btn-outline-danger"><i class="fa fa-angle-double-left"></i> {% if status == 'newestFirst' %}Newer{% elif status == 'oldestFirst' %}Older{% else %}Previous{% endif %}</a>
-      {% else %}
-        {% comment %} <a href="#" role="button" class="btn btn-outline-danger"><i class="fa fa-angle-double-left"></i> {% if status == 'newestFirst' %}Newer{% else %}Previous{% endif %} </a> {% endcomment %}
+        <a href="?page={{prev}}" role="button" style="font-weight:bold;" class="btn text-blue"><i class="fa fa-angle-double-left"></i> {% if status == 'newestFirst' %}Newer{% elif status == 'oldestFirst' %}Older{% else %}Previous{% endif %}</a>
       {% endif %}
 
       {% if nxt %}
-        <a href="?page={{nxt}}" role="button" class="float-end btn btn-outline-danger">{% if status == 'newestFirst' %}Older{% elif status == 'oldestFirst' %}Newer{% else %}Next{% endif %} <i class="fa fa-angle-double-right"></i></a>
-      {% else %}
-        {% comment %} <a href="#" role="button" class="float-end btn btn-outline-danger">{% if status == 'newestFirst' %}Older{% else %}Next{% endif %} <i class="fa fa-angle-double-right"></i></a> {% endcomment %}
+        <a href="?page={{nxt}}" role="button" style="font-weight:bold;" class="float-end btn text-blue">{% if status == 'newestFirst' %}Older{% elif status == 'oldestFirst' %}Newer{% else %}Next{% endif %} <i class="fa fa-angle-double-right"></i></a>
       {% endif %}
     </div>
     <div class="row mt-5"><!--This is just for extra space on bottom--></div>
@@ -99,20 +103,22 @@
               posts.innerHTML = `
                   {% for post in allPosts %}
                     <div class="col-md-12">
-                      <div class="noSelect row g-0 border bg-light rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                        <div class="col p-4 d-flex flex-column position-static">
-                          <strong class="d-inline-block mb-2 text-red">Article by {% if post.authorLink %}<a class="text-red" href="{{post.authorLink}}">{% endif %}{{post.author}}{% if post.authorLink %}</a>{% endif %}</strong>
-                          <h3 class="mb-0">{{post.title}}</h3>
-                          <div class="mb-1 text-muted">{{post.timeStamp}} | {{post.views}} {% if post.views <= 1 %}view{% else %}views{% endif %}</div>
-                          <p class="card-text mb-auto"><div class="preview">{{post.content|safe|striptags|truncatechars:90}}</div></p>
-                          <div class="mt-3">
-                            <a href="/blog/post/{{post.slug}}" role="button" class="btn text-red btn-arrow">Continue Reading</a>
+                      <a href="/blog/post/{{post.slug}}" style="text-decoration:none;">
+                        <div class="singlePost noSelect row g-0 border bg-light rounded overflow-hidden flex-md-row mb-4 h-md-250 position-relative">
+                          <div class="col p-4 d-flex flex-column position-static">
+                            <strong class="d-inline-block mb-2 text-red">Article by {% if post.authorLink %}<a class="text-red" href="{{post.authorLink}}">{% endif %}{{post.author}}{% if post.authorLink %}</a>{% endif %}</strong>
+                            <h3 class="mb-0" style="color:black;font-weight:bold;">{{post.title}}</h3>
+                            <div class="mb-2 text-muted">{{post.timeStamp}} | {{post.views}} {% if post.views <= 1 %}view{% else %}views{% endif %}</div>
+                            <p class="card-text mb-auto" style="color:black;">{{post.content|safe|striptags|truncatechars:250}}</p>
+                            <div class="mt-3">
+                              <button role="button" class="btn text-red btn-arrow">Continue Reading</button>
+                            </div>
+                          </div>
+                          <div class="col-auto d-none d-lg-block">
+                            <img src="/media/{{post.featureImage}}" alt="" style="height:auto;margin:20px; max-width:400px;border-radius:5px;">
                           </div>
                         </div>
-                        <div class="col-auto d-none d-lg-block">
-                          <img src="/media/{{post.featureImage}}" alt="" style="height:auto;margin:20px; max-width:400px;border-radius:5px;">
-                        </div>
-                      </div>
+                      </a>
                     </div>
                   {% endfor %}
               `;
