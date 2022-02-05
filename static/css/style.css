@@ -376,3 +376,46 @@ html{
 .btn-arrow:hover::after {
     margin-left: 15px;
 }
+
+/* floating Input Field */
+.inputWrapper{
+    position: relative;
+    height: 45px;
+    width: 100%;
+}
+.floatInput{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    border: 1px solid #DADCE0;
+    border-radius: 7px;
+    font-size: 16px;
+    padding: 0 20px;
+    outline: none;
+    background: none;
+    z-index: 1;
+}
+.floatInputLabel{
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    padding: 0 4px;
+    background-color: white;
+    color: #DADCE0;
+    font-size: 16px;
+    transition: 0.2s;
+    z-index: 0;
+}
+.floatInput:focus + .floatInputLabel{
+    top: -9px;
+    left: 3px;
+    z-index: 10;
+    font-size: 14px;
+    font-weight: 600;
+    color: #395081;
+}
+.floatInput:focus{
+    border: 1px solid #395081;
+}

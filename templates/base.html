@@ -336,6 +336,10 @@
                 transform: scaleX(1);
             }
         }
+
+        .modal.fade{
+            background-color:rgba(11, 21, 70,.3);
+        }
     </style>
     <script>
         function hamburgerClicked(){
@@ -349,14 +353,14 @@
 
 <body class="{% block bodyClass %}{% endblock bodyClass %}">
     <div class="loader">
-        <div class="spinner-border text-danger" style="width: 5rem; height: 5rem;" role="status">
+        <div class="spinner-border text-red" style="width: 5rem; height: 5rem;" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
     </div>
     <script>
         let spinnerIntervalId = setInterval(function(){
-            document.getElementsByClassName('spinner-border')[0].classList.toggle('text-danger');
-            document.getElementsByClassName('spinner-border')[0].classList.toggle('text-primary');
+            document.getElementsByClassName('spinner-border')[0].classList.toggle('text-red');
+            document.getElementsByClassName('spinner-border')[0].classList.toggle('text-blue');
         }, 500);
         window.addEventListener("load", function(){
             document.querySelector('.loader').classList.add('hidden');
@@ -412,31 +416,32 @@
                             <li class="nav-item">
                                 <a class="nav-link" id="navContact" href="/#contact">Contact Us</a>
                             </li>
-
-                            <div class="mx-4">
-                                {% if user.is_authenticated %}
-                                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                        <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Hi {{request.user}} <i class="fa fa-user mx-2"></i>
-                                            </a>
-                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                <li><a class="dropdown-item" href="/my-account/">My Account</a></li>
-                                                {% if user.is_superuser %}
-                                                    <li><a class="dropdown-item" target="_blank" href="/hcs-admin">Admin</a></li>
-                                                    <li><a class="dropdown-item" href="/broadcast">Broadcast</a></li>
-                                                {% endif %}
-                                                <li><a class="dropdown-item" href="/logout/">Logout</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                {% else %}
-                                    {% if isBlog %}
-                                        <button type="button" class="btn btn-warning mr-2" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
-                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up</button>
-                                    {% endif %}
-                                {% endif %}
-                            </div>
+                            {% if user.is_authenticated %}
+                                <li>
+                                    <div class="mx-4">
+                                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Hi {{request.user}} <i class="fa fa-user mx-2"></i>
+                                                </a>
+                                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                    <li><a class="dropdown-item" href="/my-account/">My Account</a></li>
+                                                    {% if user.is_superuser %}
+                                                        <li><a class="dropdown-item" target="_blank" href="/hcs-admin">Admin</a></li>
+                                                        <li><a class="dropdown-item" href="/broadcast">Broadcast</a></li>
+                                                    {% endif %}
+                                                    <li><a class="dropdown-item" href="/logout/">Logout</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% endif %}
+                            {% if not user.is_authenticated and isBlog %}
+                                <li class="nav-item">
+                                    <button type="button" class="btn text-blue" data-bs-toggle="modal" data-bs-target="#loginModal">SignIn</button>
+                                </li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
@@ -457,7 +462,7 @@
 
     <!-- SignUp Modal -->
     <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModal" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="signupModalTitle">Sign Up to add comments and use amazing features, for Free!!!</h5>
@@ -468,41 +473,55 @@
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="nameSignUp" name="name" placeholder="Your Name" required>
+                                <div class="inputWrapper">
+                                    <input onfocus="floatInputFocused(this)" type="text" class="floatInput" id="nameSignUp" name="name" required>
+                                    <label for="name" class="floatInputLabel">Name</label>
+                                </div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" autofill="off" id="username" name="username" placeholder="Your Username" required>
+                                <div class="inputWrapper">
+                                    <input onfocus="floatInputFocused(this)" type="text" class="floatInput" id="username" name="username" required>
+                                    <label for="username" class="floatInputLabel">Username</label>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="phone" class="form-label">Contact No. (optional)</label>
-                                <input type="tel" class="form-control" autofill="off" id="phone" name="phone" placeholder="Your Contact No.">
+                                <div class="inputWrapper">
+                                    <input onfocus="floatInputFocused(this)" type="tel" class="floatInput" autofill="off" id="phone" name="phone">
+                                    <label for="phone" class="floatInputLabel">Contact No. (optional)</label>
+                                </div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="email" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="emailSignUp" name="email" placeholder="info@harmonycreativestudio.in" required>
+                                <div class="inputWrapper">
+                                    <input onfocus="floatInputFocused(this)" type="email" class="floatInput" id="emailSignUp" name="email" required>
+                                    <label for="email" class="floatInputLabel">Email address</label>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="mb-3 col-md-6">
-                                <label for="pass1" class="form-label">Password</label>
-                                <input autocomplete="new-password" type="password" class="form-control" name="pass1" id="pass1" placeholder="Choose Your Password" required>
+                            <div class="col-md-6 mb-3">
+                                <div class="inputWrapper">
+                                    <input onfocus="floatInputFocused(this)" type="password" class="floatInput" name="pass1" id="pass1" required>
+                                    <label for="pass1" class="floatInputLabel">Password</label>
+                                </div>
                             </div>
-                            <div class="mb-3 col-md-6">
-                                <label for="pass2" class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control" name="pass2" id="pass2" placeholder="Retype Your Password" required>
+                            <div class="col-md-6 mb-3">
+                                <div class="inputWrapper">
+                                    <input onfocus="floatInputFocused(this)" type="password" class="floatInput" name="pass2" id="pass2" required>
+                                    <label for="pass2" class="floatInputLabel">Confirm Password</label>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="mb-3 col-md-12">
-                                <label for="orgName" class="form-label">Organisation Name (Optional)</label>
-                                <input type="text" class="form-control" name="orgName" id="orgName" placeholder="Your Organisation Name">
+                            <div class="col-md-12 mb-3">
+                                <div class="inputWrapper">
+                                    <input onfocus="floatInputFocused(this)" type="text" class="floatInput" name="orgName" id="orgName">
+                                    <label for="orgName" class="floatInputLabel">Organisation Name (Optional)</label>
+                                </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-outline-danger">Sign Up</button>
+                        <button type="submit" class="btn btn-outline-blue btn-sm" style="float:right;">Sign Up</button>
                     </form>
                 </div>
             </div>
@@ -511,29 +530,30 @@
 
     <!-- Login Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="loginModalTitle">Welcome Back!</h5>
+                    <div style="flex-direction:column">
+                        <h5 class="modal-title" id="loginModalTitle">Welcome Back!</h5>
+                        <small>New to HCS? <a type="button" data-bs-toggle="modal" data-bs-target="#signupModal" onclick="openSignup()" style="text-decoration:underline;">Create an account</a></small>
+                    </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/login/" method="post">
+                    <form action="/login/" method="post" class="p-3">
                     {% csrf_token %}
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="loginUsername" class="form-label">Username</label>
-                            <input type="text" class="form-control" autofill="off" id="loginUsername" name="loginUsername" placeholder="Your Username" required>
+                        <div class="inputWrapper mb-3">
+                            <input onfocus="floatInputFocused(this)" type="text" class="floatInput" id="loginUsername" name="loginUsername" required>
+                            <label for="loginUsername" class="floatInputLabel">Username</label>
                         </div>
-                        <div class="mb-3 col-md-6">
-                            <label for="pass" class="form-label">Password</label>
-                            <input type="password" class="form-control" name="pass" id="pass" placeholder="Enter Your Password">
+                        <div class="inputWrapper">
+                            <input onfocus="floatInputFocused(this)" type="password" class="floatInput" name="pass" id="pass" required>
+                            <label for="pass" class="floatInputLabel">Password</label>
                         </div>
-                        <div class="mb-3 col-md-12">
-                            <a href="/reset-password">Forgot Password?</a>
+                        <a href="/reset-password">Forgot Password?</a>
+                        <div class="buttonBlock mt-3">
+                            <button type="submit" class="btn btn-outline-blue btn-sm" style="display:inline-block;float:right;">Login</button>
                         </div>
-                    </div>
-                        <button type="submit" class="btn btn-outline-danger">Login</button>
                     </form>
                 </div>
             </div>
@@ -673,6 +693,29 @@
         function topFunction() {
             document.body.scrollTop = 0; // For Safari
             document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        }
+
+        // When from login modal, user opens signup modal, hide the login modal
+        function openSignup(){
+            $('#loginModal').modal('hide');
+        }
+
+        // For floating inputs' labels colours
+        function floatInputFocused(elem){
+            setInterval(()=>{
+                if(elem.value!='' && elem!=document.activeElement){
+                    document.querySelector('#'+elem.id+' + label').style.color = 'transparent';
+                }
+                else if(elem.value!='' && elem===document.activeElement){
+                    document.querySelector('#'+elem.id+' + label').style.color = '#395081';
+                }
+                else if(elem.value==='' && elem!=document.activeElement){
+                    document.querySelector('#'+elem.id+' + label').style.color = '#DADCE0';
+                }
+                else if(elem.value==='' && elem===document.activeElement){
+                    document.querySelector('#'+elem.id+' + label').style.color = '#395081';
+                }
+            }, 200);
         }
     </script>
     {% block js %}{% endblock js %}
