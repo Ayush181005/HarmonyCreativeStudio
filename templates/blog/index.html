@@ -42,7 +42,7 @@
       </div>
 
       <div class="btn-group my-1 mt-5 mb-3">
-        <button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        <button type="button" class="btn btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="font-weight:bold;">
           <i class="fa fa-sort-amount-desc"></i> Sort By
         </button>
         <ul class="dropdown-menu">
@@ -101,12 +101,12 @@
                     <div class="col-md-12">
                       <div class="noSelect row g-0 border bg-light rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                         <div class="col p-4 d-flex flex-column position-static">
-                          <strong class="d-inline-block mb-2 text-danger">Article by {% if post.authorLink %}<a class="text-danger" href="{{post.authorLink}}">{% endif %}{{post.author}}{% if post.authorLink %}</a>{% endif %}</strong>
+                          <strong class="d-inline-block mb-2 text-red">Article by {% if post.authorLink %}<a class="text-red" href="{{post.authorLink}}">{% endif %}{{post.author}}{% if post.authorLink %}</a>{% endif %}</strong>
                           <h3 class="mb-0">{{post.title}}</h3>
                           <div class="mb-1 text-muted">{{post.timeStamp}} | {{post.views}} {% if post.views <= 1 %}view{% else %}views{% endif %}</div>
                           <p class="card-text mb-auto"><div class="preview">{{post.content|safe|striptags|truncatechars:90}}</div></p>
                           <div class="mt-3">
-                            <a href="/blog/post/{{post.slug}}" role="button" class="btn btn-hcs stretched-link">Continue Reading</a>
+                            <a href="/blog/post/{{post.slug}}" role="button" class="btn text-red btn-arrow">Continue Reading</a>
                           </div>
                         </div>
                         <div class="col-auto d-none d-lg-block">

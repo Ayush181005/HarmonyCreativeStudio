@@ -1,3 +1,8 @@
+:root {
+    --bs-red-rgb: 171,29,51;
+    --bs-blue-rgb: 57,80,129;
+}
+
 *{
     margin: 0;
     padding:0;
@@ -50,7 +55,6 @@ html{
 }
 #query:focus{
     box-shadow: none !important;
-    border: none;
     border-bottom:2px solid gray !important;
 }
 .bg-transparent{
@@ -263,37 +267,6 @@ html{
     user-select: none;
 }
 
-.btn-hcs {
-    color: #d9534f !important;
-}
-/* .btn-hcs:hover {
-    text-decoration: underline;
-} */
-.btn-hcs::after {
-    margin-left: 8px;
-    display: inline-block;
-    position: relative;
-    right: 0;
-    content: "\276F";
-    vertical-align: top;
-    transition: all 200ms ease-in-out;
-}
-.btn-hcs:hover::after {
-    margin-left: 15px;
-}
-/* .btn-hcs {
-    color: #d9534f;
-    border-color: #d9534f;
-}
-.btn-hcs:hover {
-    color: #e4d9d8;
-    background-color: #d9534f;
-    border-color: #d9534f;
-}
-.btn-hcs:focus {
-    box-shadow: 0 0 0 0.25rem #863431;
-} */
-
 .noSelect{
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -341,4 +314,65 @@ html{
 .ui-menu .ui-menu-item a{
     color:grey;
     background-color: white;
+}
+
+.text-red {
+    --bs-text-opacity: 1;
+    color: rgba(var(--bs-red-rgb), var(--bs-text-opacity)) !important;
+}
+.bg-red {
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--bs-red-rgb), var(--bs-bg-opacity)) !important;
+}
+.btn-red {
+    color: #fff;
+    background-color: #ab1d33;
+    border-color: #ab1d33;
+}
+.btn-red:hover {
+    color: #fff;
+    background-color: #bb2d3b;
+    border-color: #b02a37;
+}
+.btn-blue{
+    color: #fff;
+    background-color: #395081;
+    border-color: #395081;
+}
+.btn-blue:hover{
+    color: #fff;
+    background-color: #3b5a8a;
+    border-color: #3b5a8a;
+}
+.btn-outline-blue{
+    color: #395081;
+    background-color: transparent;
+    border-color: #395081;
+    transition: .3s;
+}
+.btn-outline-blue:hover{
+    color: #fff;
+    background-color: #395081;
+    border-color: #395081;
+}
+.text-red {
+    --bs-text-opacity: 1;
+    color: rgba(var(--bs-red-rgb), var(--bs-text-opacity)) !important;
+}
+.text-blue {
+    --bs-text-opacity: 1;
+    color: rgba(var(--bs-blue-rgb), var(--bs-text-opacity)) !important;
+}
+
+.btn-arrow::after {
+    margin-left: 8px;
+    display: inline-block;
+    position: relative;
+    right: 0;
+    content: "\276F";
+    vertical-align: top;
+    transition: all 200ms ease-in-out;
+}
+.btn-arrow:hover::after {
+    margin-left: 15px;
 }

@@ -18,6 +18,28 @@
             border-radius:5px;
         }
 
+        input{
+            outline: none !important;
+            border: 0 !important;
+            border-radius: 0px !important;
+            border-bottom: 2px solid lightgrey !important;
+            transition: .1s;
+            background-color:transparent !important;
+        }
+        input:focus{
+            border-bottom: 2px solid #00bcd4 !important;
+            box-shadow: none !important;
+        }
+
+        .sub{
+            font-weight: bold;
+            border: 1px solid black;
+            transition: none !important;
+        }
+        .sub:hover{
+            background-color: #e8e8e8;
+        }
+
         @media only screen and (max-width:540px){
             .blogPostBg{
                 width: 100%;
@@ -38,7 +60,7 @@
                 margin-top:5px !important;
                 padding:.25rem .5rem;
                 font-size:.875rem;
-                border-radius:.2rem
+                border-radius:.2rem;
             }
 
             .repDiv{
@@ -93,8 +115,8 @@
                         <div class="form-group col-md-6">
                             <input class="form-control" type="text" name="comment" placeholder="Post Your Comment" minlength="3" required>
                         </div>                    
-                        <div class="form-group col-md-2">
-                            <input class="btn btn-success sub" type="submit" value="Submit">
+                        <div class="form-group col-auto">
+                            <button class="btn sub btn-sm" type="submit">Post</button>
                         </div>
                     </div>
                 </form>
@@ -111,7 +133,7 @@
 
                         {% if user.is_superuser %}
                             <div class="reply mx-0 mt-2">
-                                <button class="btn btn-sm btn-outline-danger" type="button" data-bs-toggle="collapse" data-bs-target="#replyBox{{comment.sno}}" aria-expanded="false" aria-controls="replyBox{{comment.sno}}">
+                                <button class="btn btn-sm btn-red" type="button" data-bs-toggle="collapse" data-bs-target="#replyBox{{comment.sno}}" aria-expanded="false" aria-controls="replyBox{{comment.sno}}">
                                     Reply
                                 </button>
                                 <div class="collapse" id="replyBox{{comment.sno}}">
@@ -123,11 +145,11 @@
                                                 <input type="hidden" name="parentSno" value="{{comment.sno}}">
                                             </div>
                                             <div class="row">                    
-                                                <div class="form-group col-md-6">
+                                                <div class="form-group col-auto">
                                                     <input class="form-control" type="text" name="comment" placeholder="Post Your Reply" minlength="3" required>
                                                 </div>                    
-                                                <div class="form-group col-md-2">
-                                                    <input class="btn btn-success sub" type="submit" value="Submit">
+                                                <div class="form-group col-auto">
+                                                    <button class="btn sub btn-sm" type="submit">Post</button>
                                                 </div>
                                             </div>
                                         </form>

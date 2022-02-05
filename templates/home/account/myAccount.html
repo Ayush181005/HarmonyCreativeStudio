@@ -22,13 +22,13 @@
     <div style="display:flex;justify-content:center;" class="m-5">
         <div class="card p-3 accountDetailsShadow">
             <h6 class="noSelect">Account Info:</h6>
-            <p class="mb-1"><span class="noSelect">Name: </span><span id="userFullName">{{ user.get_full_name }}</span>{% if user.is_superuser %}<span class="mx-1 badge rounded-pill bg-danger">Super User</span>{% endif %}</p>
+            <p class="mb-1"><span class="noSelect">Name: </span><span id="userFullName">{{ user.get_full_name }}</span>{% if user.is_superuser %}<span class="mx-1 badge rounded-pill bg-red">Super User</span>{% endif %}</p>
             <p class="mb-1"><span class="noSelect">Username: </span><span id="userUsername">{{ user.username }}</span></p>
             <p class="mb-1"><span class="noSelect">Email: </span><span id="userEmail">{{ user.email }}</span></p>
             <a href="/reset-password">Change Password?</a>
             <div class="row p-2">
-                <button class="btn btn-danger btn-sm col-md-6" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" style="border-top-right-radius:0;border-bottom-right-radius:0;">Delete Account</button>
-                <button class="btn btn-warning btn-sm col-md-6" type="button" data-bs-toggle="modal" data-bs-target="#updateModal" style="border-top-left-radius:0;border-bottom-left-radius:0;">Update Account</button>
+                <button class="btn btn-red btn-sm col-md-6" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" style="border-top-right-radius:0;border-bottom-right-radius:0;">Delete Account</button>
+                <button class="btn btn-blue btn-sm col-md-6" type="button" data-bs-toggle="modal" data-bs-target="#updateModal" style="border-top-left-radius:0;border-bottom-left-radius:0;">Update Account</button>
             </div>
         </div>
     </div>
@@ -38,14 +38,11 @@
         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Please Confirm, would you really like to delete your account?<br>
-                    We are sorry to see you go.
-                </div>
-                <a type="button" href="/delete-account" class="btn btn-danger" style="border-top-right-radius:0 !important;border-top-left-radius:0 !important;">Yes</a>
+                    <div class="modal-body">
+                        Please Confirm, would you really like to delete your account?<br>
+                        We are sorry to see you go.
+                    </div>
+                    <a type="button" href="/delete-account" class="btn btn-red" style="border-top-right-radius:0 !important;border-top-left-radius:0 !important;">Yes</a>
                 </div>
             </div>
         </div>
@@ -56,31 +53,29 @@
         <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
                     <div class="modal-body">
                         <form action="/update-account/" method="post">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-12 mb-3">
-                                    <label for="name" class="form-label">Name</label>
+                                    <label for="nameUpdate" class="form-label">Name</label>
                                     <input type="text" class="form-control" id="nameUpdate" name="nameUpdate" value="{{request.user.get_full_name}}" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12 mb-3">
-                                    <label for="username" class="form-label">Username</label>
+                                    <label for="usernameUpdate" class="form-label">Username</label>
                                     <input type="text" class="form-control" autofill="off" id="usernameUpdate" name="usernameUpdate" value="{{user.username}}" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12 mb-3">
-                                    <label for="email" class="form-label">Email address</label>
+                                    <label for="emailUpdate" class="form-label">Email address</label>
                                     <input type="email" class="form-control" id="emailUpdate" name="emailUpdate" value="{{request.user.email}}" required>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-outline-warning btn-sm">Update Account</button>
+                            <button type="submit" class="btn btn-outline-blue btn-sm">Update Account</button>
+                            <button class="btn" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                         </form>
                     </div>
                 </div>

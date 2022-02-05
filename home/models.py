@@ -46,7 +46,7 @@ class Portfolio(models.Model):
         return str(self.sno) + ". " + self.category
 
     def get_absolute_url(self):
-        return f'/portfolio/{self.slug}'    
+        return f'/portfolio/{self.slug}'
 
 class Client(models.Model):
     logo = models.ImageField(upload_to="home/clients")

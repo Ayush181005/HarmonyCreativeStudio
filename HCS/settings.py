@@ -142,7 +142,7 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MESSAGE_TAGS = {
-    messages.ERROR: 'danger'
+    messages.ERROR: 'red'
 }
 
 EMAIL_HOST_USER = envread('EMAIL_HOST_USER')
