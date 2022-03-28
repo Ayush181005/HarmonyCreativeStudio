@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Post, BlogComment
 from django.contrib import messages
 from math import ceil
+from datetime import date, timedelta
 
 def blogTemplate(request, status):
     posts_per_page = 5
@@ -27,6 +28,11 @@ def blogTemplate(request, status):
         popular = True
         newest = False
     allPosts =allPosts[(page-1)*posts_per_page: page*posts_per_page]
+
+    for post in allPosts:
+        if date.today()-post.timeStamp.date()>timedelta(days=2):
+            post.isOld = True
+            post.save()
 
     if page>1:
         previousPage = page-1

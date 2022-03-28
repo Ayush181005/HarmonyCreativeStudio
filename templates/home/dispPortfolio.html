@@ -3,7 +3,7 @@
 
 {% block title %}{{portfolio.category}} | HarmonyCreativeStudio{% endblock title %}
 {% block portfolioactive %}active{% endblock portfolioactive %}
-{% block metaDesc %}{{portfolio.metaDesc}}{% endblock metaDesc %}
+{% block metaDesc %}{{portfolio.desc}}{% endblock metaDesc %}
 {% block metaKeywords %}{{portfolio.keywords}}{% endblock metaKeywords %}
 
 {% block css %}
@@ -28,6 +28,21 @@
 
         .swiper-slide{
             border-radius: 5px !important;
+        }
+
+        .swiper-pagination-bullet{
+            height: 15px !important;
+            width: 15px !important;
+            border-radius: 15px !important;
+            cursor: pointer !important;
+            transition: .5s !important;
+            opacity:1;
+            border:1px solid rgb(57,80,129) !important;
+            background-color:white !important;
+        }
+
+        .swiper-pagination-bullet-active{
+            background-color:rgb(57,80,129) !important;
         }
     </style>
 {% endblock css %}

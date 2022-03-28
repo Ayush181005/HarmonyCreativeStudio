@@ -18,11 +18,11 @@
         .background{
             background-size: cover !important;
             background-blend-mode: lighten;
-            {% comment %} animation: bgAnim 18s infinite linear; {% endcomment %}
+            /* animation: bgAnim 18s infinite linear; */
             background-repeat: no-repeat !important;
             background-attachment: fixed !important;
             background:  rgba(255, 255 , 255 , 0.7) url('{%static 'images/homeBg/1.webp'%}');
-            height: 100vh;
+            height: 90vh;
             width: 100vw;
         }
         @keyframes bgAnim{
@@ -216,6 +216,16 @@
             height:auto;
         }
 
+        .recaptchaContactWrapper{
+            margin-left:25%;
+        }
+        @media only screen and (max-width:768px){
+            .recaptchaContactWrapper{
+                margin-left:0;
+                transform:scale(.6);
+            }
+        }
+
         @media only screen and (max-width: 768px) and (min-width: 500px){
             #innerStudioImg{
                 max-height:50% !important;
@@ -251,7 +261,7 @@
                 </div>
             </div>
             <div class="row">
-                <h2 style="font-family: 'Fredericka the Great', cursive;"><span style="margin-left:40px;">Services<span></h2>
+                <h2 style="font-family: 'Fredericka the Great', cursive;">Services</h2>
                 <div class="col-md-6 colImg my-2" style="display:flex;justify-content:center;">
                     <!--<img data-aos="zoom-in-left" class="lazy" data-aos-once="true" data-src="{% static 'images/About Studio/1.jpg' %}" alt="" style="max-width:85%">-->
                     <iframe data-aos="zoom-in-left" class="yt-lazy" data-aos-once="true" style="width:85%;border-radius: 10px;min-height:250px;" data-src="https://www.youtube.com/embed/rY3pKPIId5g?rel=0&modestbranding=1" title="Imagination - Innovation - Creation" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;" allowfullscreen></iframe>
@@ -391,8 +401,8 @@
                     </div>
                 </div>
 
-                <div class="row" style="justify-content:center;">
-                    <div class="col-md-3">
+                <div class="row text-center">
+                    <div class="recaptchaContactWrapper">
                         <div class="g-recaptcha" data-sitekey="{{recaptchaSiteKey}}" ></div>
                     </div>
                 </div>

@@ -28,7 +28,6 @@ class Portfolio(models.Model):
     slug = models.CharField(max_length=100)
     desc = models.TextField()
     projectInfo = models.TextField()
-    metaDesc = models.CharField(max_length=200, help_text="min: 130 letters, max: 170 letters")
     keywords = models.CharField(default="", max_length=600)
     featureImage = models.ImageField(upload_to="home/portfolio", blank=True)
     img1 = models.ImageField(upload_to="home/portfolio", help_text="300x300px")

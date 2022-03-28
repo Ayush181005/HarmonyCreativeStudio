@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from home.models import Contact, Testimonial, Portfolio, Client, TeamMember, broadcasted_message
 from blog.models import Post
 from django.contrib import messages
@@ -20,17 +20,8 @@ def home(request):
 
     allPosts = Post.objects.all()
     for post in allPosts:
-        t1 = datetime.strptime('10/18/2005', "%m/%d/%Y")
-        t2 = datetime.strptime('10/16/2005', "%m/%d/%Y")
-        deltaTwo = t1 - t2
-        # diff = current_date-post.timeStamp.date()
-        # if(diff<=deltaTwo):
-        #     isPost = True
-        if current_date-post.timeStamp.date()<=deltaTwo:
-            isPost = True
-    
-    if(isPost):
-        messages.info(request, 'There is a <a class="text-dark" href="/blog/post/'+post.slug+'">Post</a> uploaded by HarmonyCreativeStudio in last 2 days, to view that go to the <a class="text-dark" href="/blog">Blog Page</a>!')
+        if current_date-post.timeStamp.date()<=timedelta(days=2):
+            messages.info(request, f'There is a <a class="text-dark" href="/blog/post/{post.slug}">Post - {post.title}</a> uploaded by HarmonyCreativeStudio in last 2 days, to view that go to the <a class="text-dark" href="/blog">Blog Page</a>!')
 
     allTestimonials = Testimonial.objects.all()
     allClients = Client.objects.all()

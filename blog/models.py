@@ -16,6 +16,7 @@ class Post(models.Model):
     featureImage = models.ImageField(upload_to="blog/images")
     uniqueVisitorIPs = models.TextField(default="", blank=True)
     metaDesc = models.CharField(max_length=200, help_text="min: 130 letters, max: 170 letters")
+    isOld= models.BooleanField(default=False)
 
     def __str__(self):
         return self.title + ', by ' + self.author
