@@ -11,16 +11,13 @@ import json
 import requests
 
 def home(request):
-    current_date = date.today()
-    current_year = current_date.year
-    experience = current_year - 2002
+    experience = date.today().year - 2002
 
-    isPost = False
     isHome = True
 
     allPosts = Post.objects.all()
     for post in allPosts:
-        if current_date-post.timeStamp.date()<=timedelta(days=2):
+        if not post.isOld:
             messages.info(request, f'There is a <a class="text-dark" href="/blog/post/{post.slug}">Post - {post.title}</a> uploaded by HarmonyCreativeStudio in last 2 days, to view that go to the <a class="text-dark" href="/blog">Blog Page</a>!')
 
     allTestimonials = Testimonial.objects.all()

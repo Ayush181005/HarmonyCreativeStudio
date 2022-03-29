@@ -30,7 +30,7 @@ def blogTemplate(request, status):
     allPosts =allPosts[(page-1)*posts_per_page: page*posts_per_page]
 
     for post in allPosts:
-        if date.today()-post.timeStamp.date()>timedelta(days=2):
+        if date.today()-post.timeStamp.date()>timedelta(days=2) and not post.isOld:
             post.isOld = True
             post.save()
 
