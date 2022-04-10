@@ -48,7 +48,7 @@
 {% endblock css %}
 
 {% block body %}
-    <div class="noSelect container-fluid p-5" style="background:rgba(51, 51, 51, .8) url('/media/{{portfolio.featureImage}}') no-repeat center fixed;background-size:{% comment%}contain{% endcomment %} cover;background-blend-mode: darken;">
+    <div class="noSelect container-fluid p-5" style="background:rgba(51, 51, 51, .8) url('/media/{{portfolio.featureImage}}') no-repeat center fixed;background-size:cover;background-blend-mode:darken;transition:.1s;">
         <table style="width: 100%">
             <tr>
                 <td>
