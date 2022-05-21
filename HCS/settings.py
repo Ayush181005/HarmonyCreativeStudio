@@ -129,10 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-    '/var/www/static/',
-]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -145,12 +142,13 @@ MESSAGE_TAGS = {
     messages.ERROR: 'red'
 }
 
-EMAIL_HOST_USER = envread('EMAIL_HOST_USER')
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
-EMAIL_HOST_PASSWORD = envread('EMAIL_HOST_PASSWORD')
+# Mail
+# EMAIL_HOST_USER = envread('EMAIL_HOST_USER')
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = False
+# EMAIL_HOST_PASSWORD = envread('EMAIL_HOST_PASSWORD')
 
 DJANGORESIZED_DEFAULT_FORMAT_EXTENSIONS = {'PNG': ".png", 'WebP': '.webp', 'JPG': '.jpg', 'JPEG': '.jpeg'}
 

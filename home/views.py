@@ -5,7 +5,7 @@ from blog.models import Post
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from django.core.mail import send_mail
+# from django.core.mail import send_mail
 from decouple import config as envread
 import json
 import requests
@@ -67,7 +67,7 @@ def home(request):
         else:
             contact = Contact(name=name, email=email, subject=subject, content=content)
             contact.save()
-            send_mail("Contact Recieved", f"There is a message from {contact.name} through the Contact Us form on harmonycreativestudio.in.\nMailID of Contact: {contact.email}\nSubject: {contact.subject}\nMessage: {contact.content}", 'hcstudio14@gmail.com', ['info@harmonycreativestudio.in'], fail_silently=False)
+            # send_mail("Contact Recieved", f"There is a message from {contact.name} through the Contact Us form on harmonycreativestudio.in.\nMailID of Contact: {contact.email}\nSubject: {contact.subject}\nMessage: {contact.content}", 'hcstudio14@gmail.com', ['info@harmonycreativestudio.in'], fail_silently=False)
 
             messages.success(request, 'Your message has been sent! We will get back to you shortly!')
             isError = False
@@ -137,7 +137,7 @@ def handleSignup(request):
         user.orgName = orgName
         user.save()
 
-        send_mail("Someone Signed Up on harmonycreativestudio.in", f"Name: {name}\nusername: {username}\nPhone No.: {phone}\nEmailID: {email}\nOrganisation: {orgName}", 'hcstudio14@gmail.com', ['info@harmonycreativestudio.in'], fail_silently=False)
+        # send_mail("Someone Signed Up on harmonycreativestudio.in", f"Name: {name}\nusername: {username}\nPhone No.: {phone}\nEmailID: {email}\nOrganisation: {orgName}", 'hcstudio14@gmail.com', ['info@harmonycreativestudio.in'], fail_silently=False)
 
         user = authenticate(username=username, password=pass1)
         login(request, user)
