@@ -87,7 +87,7 @@
                 portfolios.innerHTML = `
                     {% for portfolio in allPortfolios %}
                         <a href="/portfolio/{{portfolio.slug}}" class="my-3 p-0 card mx-3" style="width: 29%;text-decoration:none;color:black;height:100%;">
-                            <img src="/media/{{portfolio.img1}}" class="card-img-top portfolioImg" style="width:auto;height:20vw;">
+                            <img src="/media/{{portfolio.img1}}" class="card-img-top portfolioImg" style="width:auto;height:20vw;" alt="{{portfolio.title}} img">
                             <div class="card-body">
                                 <h6 class="card-title text-center text3D" style="color:black;font-family: verdana;text-transform: uppercase;">{{portfolio.category}}</h6>
                             </div>
