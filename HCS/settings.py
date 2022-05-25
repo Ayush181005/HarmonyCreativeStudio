@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'django_cleanup.apps.CleanupConfig',
     'django.contrib.sitemaps',
+    'robots',
+    'django.contrib.sites',
 ]
 
 MIDDLEWARE = [
@@ -163,6 +165,9 @@ CACHES = {
         },
     }
 }
+
+# Sites framework
+SITE_ID = 1
 
 # HTTPS Settings:-
 # CSRF_COOKIE_SECURE = True

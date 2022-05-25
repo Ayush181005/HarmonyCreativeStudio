@@ -38,6 +38,7 @@ admin.site.index_title = "Welcome to HCS Administration"
 urlpatterns = [
     path('hcs-admin/', admin.site.urls),
     path('sitemap.xml', sitemap, {'sitemaps':sitemaps}),
+    path('robots.txt', include('robots.urls')),
     path('', include('home.urls')),
     path('blog/', include('blog.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
