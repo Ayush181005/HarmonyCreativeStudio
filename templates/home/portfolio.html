@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
     <style>
         .portfolioBanner{
-            background: url('{% static 'images/Portfolio/banner.jpg' %}');
+            background: url('{% static 'images/Portfolio/banner.webp' %}');
             background-size: 100vw 100%, cover;
             background-repeat: no-repeat;
             height: 100%;
@@ -72,7 +72,7 @@
         </div>
     </div>
 
-    <div id="portfolios" class="row p-5" style="justify-content:center;"></div>
+    <div id="portfolios" class="row p-5" style="justify-content:center;margin-right:0 !important;"></div>
 {% endblock body %}
 
 {% block js %}
@@ -87,7 +87,7 @@
                 portfolios.innerHTML = `
                     {% for portfolio in allPortfolios %}
                         <a href="/portfolio/{{portfolio.slug}}" class="my-3 p-0 card mx-3" style="width: 29%;text-decoration:none;color:black;height:100%;">
-                            <img src="/media/{{portfolio.img1}}" class="card-img-top portfolioImg" style="width:auto;height:20vw;" alt="{{portfolio.title}} img">
+                            <img src="/media/{{portfolio.img1}}" alt="{{portfolio.category}} img" class="card-img-top portfolioImg" style="width:auto;height:20vw;" alt="{{portfolio.title}} img">
                             <div class="card-body">
                                 <h6 class="card-title text-center text3D" style="color:black;font-family: verdana;text-transform: uppercase;">{{portfolio.category}}</h6>
                             </div>
