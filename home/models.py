@@ -66,7 +66,7 @@ class TeamMember(models.Model):
 
 class broadcasted_message(models.Model):
     msg = models.TextField()
-    timeStamp = models.DateTimeField(default = now)
+    timeStamp = models.DateTimeField(default = now, help_text="Time when message is broadcasted (NOTE: IF THE TIME IS AROUND MID-NIGHT, IT IS TREATED AS PREVIOUS DAY. THE NEW DAY STARTS AT 5:30:01 FOR THE PROGRAM 😅)")
     activeDays = models.IntegerField(help_text="The no. of days for which the message should be shown.")
 
     def __str__(self):
