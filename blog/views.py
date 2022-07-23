@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Post, BlogComment
 from django.contrib import messages
+from django.core.exceptions import BadRequest
 from math import ceil
 from datetime import date, timedelta
 
@@ -125,8 +126,8 @@ def postComment(request):
             comment=BlogComment(comments = comment, user = user, post = post , parent = parent)
             comment.save()
             messages.success(request, "Your reply has been posted successfully")
-        
-    return redirect(f"/blog/post/{post.slug}")
+    else:
+        raise BadRequest()
 
 def search(request):
     if(len(Post.objects.all()) == 0):
