@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'robots',
     'django.contrib.sites',
+    'django.contrib.redirects',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     'django.middleware.cache.FetchFromCacheMiddleware',
 ]
 
@@ -145,12 +147,12 @@ MESSAGE_TAGS = {
 }
 
 # Mail
-# EMAIL_HOST_USER = envread('EMAIL_HOST_USER')
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_USE_SSL = False
-# EMAIL_HOST_PASSWORD = envread('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = envread('EMAIL_HOST_USER')
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST_PASSWORD = envread('EMAIL_HOST_PASSWORD')
 
 DJANGORESIZED_DEFAULT_FORMAT_EXTENSIONS = {'PNG': ".png", 'WebP': '.webp', 'JPG': '.jpg', 'JPEG': '.jpeg'}
 
@@ -171,4 +173,10 @@ SITE_ID = 1
 
 # HTTPS Settings:-
 # CSRF_COOKIE_SECURE = True
-# SESSION_COKKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True
+
+# HSTS Settings:-
+# SECURE_HSTS_SECONDS = 31536000 # 1 year
+# SECURE_HSTS_PRELOAD = True
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True

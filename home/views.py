@@ -1,11 +1,12 @@
-from django.shortcuts import render, HttpResponse, redirect
-from datetime import date, datetime, timedelta
+from django.shortcuts import render, redirect
+from django.core.exceptions import BadRequest, PermissionDenied
+from datetime import date, datetime
 from home.models import Contact, Testimonial, Portfolio, Client, TeamMember, broadcasted_message
 from blog.models import Post
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-# from django.core.mail import send_mail
+from django.core.mail import send_mail
 from decouple import config as envread
 import json
 import requests
@@ -29,8 +30,8 @@ def home(request):
     for broadcastedMessage in allBroadcastedMessages:
         t1 = datetime.strptime('10/18/2005', "%m/%d/%Y")
         t2 = datetime.strptime('10/'+str(18 - broadcastedMessage.activeDays)+'/2005', "%m/%d/%Y")
-        deltaTwo = t1 - t2
-        if current_date-broadcastedMessage.timeStamp.date() < deltaTwo:
+        timeDelta = t1 - t2
+        if date.today() - broadcastedMessage.timeStamp.date() < timeDelta and date.today() - broadcastedMessage.timeStamp.date() >= (t1-t1):
             messages.info(request, broadcastedMessage.msg)
 
     params = {'experience':experience, 'allTestimonials':allTestimonials, 'allClients': allClients, 'allPortfolios': allPortfolios, 'isHome': isHome, 'allTeamMembers': allTeamMembers}
@@ -67,7 +68,7 @@ def home(request):
         else:
             contact = Contact(name=name, email=email, subject=subject, content=content)
             contact.save()
-            # send_mail("Contact Recieved", f"There is a message from {contact.name} through the Contact Us form on harmonycreativestudio.in.\nMailID of Contact: {contact.email}\nSubject: {contact.subject}\nMessage: {contact.content}", 'hcstudio14@gmail.com', ['info@harmonycreativestudio.in'], fail_silently=False)
+            send_mail("Contact Recieved", f"There is a message from {contact.name} through the Contact Us form on harmonycreativestudio.in.\nMailID of Contact: {contact.email}\nSubject: {contact.subject}\nMessage: {contact.content}", 'hcstudio14@gmail.com', ['info@harmonycreativestudio.in'], fail_silently=False)
 
             messages.success(request, 'Your message has been sent! We will get back to you shortly!')
             isError = False
@@ -137,7 +138,7 @@ def handleSignup(request):
         user.orgName = orgName
         user.save()
 
-        # send_mail("Someone Signed Up on harmonycreativestudio.in", f"Name: {name}\nusername: {username}\nPhone No.: {phone}\nEmailID: {email}\nOrganisation: {orgName}", 'hcstudio14@gmail.com', ['info@harmonycreativestudio.in'], fail_silently=False)
+        send_mail("Someone Signed Up on harmonycreativestudio.in", f"Name: {name}\nusername: {username}\nPhone No.: {phone}\nEmailID: {email}\nOrganisation: {orgName}", 'hcstudio14@gmail.com', ['info@harmonycreativestudio.in'], fail_silently=False)
 
         user = authenticate(username=username, password=pass1)
         login(request, user)
@@ -145,7 +146,7 @@ def handleSignup(request):
 
         return redirect(request.META.get('HTTP_REFERER', 'home'))
     else:
-        return HttpResponse('Request Not Found', status=404)
+        raise BadRequest()
 
 def handleLogin(request):
     if request.method == 'POST':
@@ -163,7 +164,7 @@ def handleLogin(request):
             return redirect(request.META.get('HTTP_REFERER', 'home'))
 
     else:
-        return HttpResponse('Request Not Found', status=404)
+        raise BadRequest()
 
 def handleLogout(request):
     logout(request)
@@ -202,18 +203,17 @@ def updateAccount(request):
             messages.info(request, "It may take several seconds to update info...<script>setTimeout(()=>{document.getElementById('nameUpdate').value = '"+user.first_name+"';document.getElementById('usernameUpdate').value = '"+user.username+"';document.getElementById('emailUpdate').value = '"+user.email+"';document.getElementById('userFullName').innerText = '"+user.first_name+"';document.getElementById('userUsername').innerText = '"+user.username+"';document.getElementById('userEmail').innerText = '"+user.email+"';}, 3000);</script>")
 
         return redirect(request.META.get('HTTP_REFERER', 'myAccount'))
+    else:
+        raise BadRequest()
 
 def myAccount(request):
     if request.user.is_authenticated:
         return render(request, 'home/account/myAccount.html', {'footerInAir':True})
     else:
-        return HttpResponse("Access Denied", status=401)
+        raise PermissionDenied()
 
 def page_not_found_view(request, exception):
     return render(request, 'home/custom_errors/page_not_found.html', {'footerInAir':True})
 
 def internal_server_error_view(request):
     return render(request, 'home/custom_errors/internal_server_error.html')
-
-def unauthorized_view(request):
-    return render(request, 'home/custom_errors/unauthorized.html')
