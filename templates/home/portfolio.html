@@ -60,7 +60,7 @@
     <section class="portfolioBanner">
         <div class="row">
             <div class="col-md-1 bg-light rounded" style="width: 100%;background-color:rgba(0, 0, 0, .3) !important;cursor:default;">
-                <h3 class="text-big m-2" style="color:white;font-family: 'Zen Dots', cursive;">Portfolio</h3>
+                <h1 class="text-big m-2" style="color:white;font-family: 'Zen Dots', cursive;">Portfolio</h1>
                 <p style="width:50vw;" class="text-small m-2"><a href="/" style="text-decoration:none;" class="homeLink">Home</a><span style="color:lightgray;"> &gt; Portfolio</span></p>
             </div>
         </div>
@@ -72,7 +72,7 @@
         </div>
     </div>
 
-    <div id="portfolios" class="row p-5" style="justify-content:center;margin-right:0 !important;"></div>
+    <div id="portfolios" class="row p-2" style="justify-content:center;margin-right:0 !important;"></div>
 {% endblock body %}
 
 {% block js %}
@@ -84,6 +84,7 @@
             url:'/portfolio/',
             success:function(res){
                 portfolioSpinner.classList.add('no-display');
+                portfolioSpinner.remove();
                 portfolios.innerHTML = `
                     {% for portfolio in allPortfolios %}
                         <a href="/portfolio/{{portfolio.slug}}" class="my-3 p-0 card mx-3" style="width: 29%;text-decoration:none;color:black;height:100%;">
@@ -103,12 +104,9 @@
 {% endblock js %}
 
 {% block mediaJS %}
-    document.getElementById('portfolios').classList.remove('m-5');
-    document.getElementById('portfolios').classList.remove('p-5');
-    document.getElementById('portfolios').classList.add('p-1');
+    document.getElementById('portfolios').classList.remove('p-2');
 {% endblock mediaJS %}
 
 {% block mediaJSElse %}
-    document.getElementById('portfolios').classList.add('m-5');
-    document.getElementById('portfolios').classList.add('p-5');
+    document.getElementById('portfolios').classList.add('p-2');
 {% endblock mediaJSElse %}
