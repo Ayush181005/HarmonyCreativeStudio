@@ -79,6 +79,8 @@
   </style>
 {% endblock css %}
 
+{% load humanize %}
+
 {% block body %}
   {% if not footerInAir %}
     <div class="container my-5">
@@ -154,7 +156,7 @@
                           <div class="col p-4 d-flex flex-column position-static">
                             <strong class="d-inline-block mb-2 text-red">Article by {% if post.authorLink %}<a class="text-red" href="{{post.authorLink}}">{% endif %}{{post.author}}{% if post.authorLink %}</a>{% endif %}</strong>
                             <h3 class="mb-0" style="color:black;font-weight:bold;">{{post.title}}</h3>
-                            <div class="mb-2 text-muted">{{post.timeStamp}} | {{post.views}} {% if post.views <= 1 %}view{% else %}views{% endif %}</div>
+                            <div class="mb-2 text-muted">{{post.timeStamp|naturaltime}} | {{post.views}} {% if post.views <= 1 %}view{% else %}views{% endif %}</div>
                             <p class="card-text mb-auto" style="color:black;">{{post.content|safe|striptags|truncatechars:185}}</p>
                             <div class="mt-3">
                               <button role="button" class="btn text-red btn-arrow">Continue Reading</button>
