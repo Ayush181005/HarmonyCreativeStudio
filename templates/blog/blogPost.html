@@ -19,7 +19,7 @@
             border-radius:5px;
         }
 
-        input{
+        .commentReplyInput{
             outline: none !important;
             border: 0 !important;
             border-radius: 0px !important;
@@ -27,7 +27,7 @@
             transition: .1s;
             background-color:transparent !important;
         }
-        input:focus{
+        .commentReplyInput:focus{
             border-bottom: 2px solid #00bcd4 !important;
             box-shadow: none !important;
         }
@@ -83,7 +83,7 @@
         <div class="col-md-12 bg-light rounded">
             <h1 class="fst-italic">{{post.title}}</h1>
             <p class="blog-post-meta mb-4">
-                {{post.pub_date}}{{post.timeStamp}}, by <b>{% if post.authorLink %}<a href="{{post.authorLink}}">{{post.author}}</a>{% else %}{{post.author}}{% endif %}</b> | {{post.views}} {% if post.views <= 1 %}view{% else %}views{% endif %}
+                {{post.timeStamp|naturaltime}}, by <b>{% if post.authorLink %}<a href="{{post.authorLink}}">{{post.author}}</a>{% else %}{{post.author}}{% endif %}</b> | {{post.views}} {% if post.views <= 1 %}view{% else %}views{% endif %}
             </p>
             
             <hr>
@@ -114,7 +114,7 @@
                     </div>
                     <div class="row">                    
                         <div class="form-group col-md-6">
-                            <input class="form-control" type="text" name="comment" placeholder="Post Your Comment" minlength="3" required>
+                            <input class="form-control commentReplyInput" type="text" name="comment" placeholder="Post Your Comment" minlength="3" required>
                         </div>                    
                         <div class="form-group col-auto">
                             <button class="btn sub btn-sm" type="submit">Post</button>
@@ -147,7 +147,7 @@
                                             </div>
                                             <div class="row">                    
                                                 <div class="form-group col-auto">
-                                                    <input class="form-control" type="text" name="comment" placeholder="Post Your Reply" minlength="3" required>
+                                                    <input class="form-control commentReplyInput" type="text" name="comment" placeholder="Post Your Reply" minlength="3" required>
                                                 </div>                    
                                                 <div class="form-group col-auto">
                                                     <button class="btn sub btn-sm" type="submit">Post</button>
