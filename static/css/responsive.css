@@ -45,3 +45,14 @@
         font-size: .46em !important;
     }
 }
+
+/* 4K */
+@media only screen and (min-width: 2560px){
+    .nav-item .nav-link{
+        font-size: 30px !important;
+    }
+
+    #navbarImg {
+        width: 200px !important;
+    }
+}
